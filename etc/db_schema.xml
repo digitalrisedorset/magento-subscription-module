@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="drd_subscribe_subscription" resource="default" engine="innodb" comment="DRD Subscription Table">
+        <column name="subscription_id" xsi:type="int" nullable="false" identity="true" unsigned="true" comment="Subscription ID"/>
+        <column name="order_id" xsi:type="int" nullable="false" unsigned="true" comment="Order ID"/>
+        <column name="order_item_id" xsi:type="int" unsigned="true" nullable="false" comment="Order Item ID"/>
+        <column name="sku" xsi:type="varchar" nullable="false" length="255" comment="Product SKU"/>
+        <column name="recurrence" xsi:type="varchar" nullable="false" length="64" comment="Recurrence"/>
+        <column name="next_order_date" xsi:type="datetime" nullable="false" comment="Next Order Date"/>
+        <column name="status" xsi:type="varchar" nullable="false" length="32" default="active" comment="Status"/>
+        <column name="created_at" xsi:type="timestamp" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column name="updated_at" xsi:type="timestamp" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="subscription_id"/>
+        </constraint>
+
+        <index referenceId="DRD_SUBSCRIBE_ORDER_ID_IDX" indexType="btree">
+            <column name="order_id"/>
+        </index>
+
+        <index referenceId="DRD_SUBSCRIBE_ORDER_ITEM_ID_IDX">
+            <column name="order_item_id"/>
+        </index>
+
+        <index referenceId="DRD_SUBSCRIBE_SKU_IDX" indexType="btree">
+            <column name="sku"/>
+        </index>
+
+        <constraint xsi:type="foreign" referenceId="DRD_SUBSCRIBE_ORDER_ID_FK"
+                    table="drd_subscribe_subscription"
+                    column="order_id"
+                    referenceTable="sales_order"
+                    referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+
+        <constraint xsi:type="foreign" referenceId="DRD_SUBSCRIBE_ORDER_ITEM_ID_FK"
+                    table="drd_subscribe_subscription"
+                    column="order_item_id"
+                    referenceTable="sales_order_item"
+                    referenceColumn="item_id"
+                    onDelete="CASCADE"/>
+    </table>
+</schema>

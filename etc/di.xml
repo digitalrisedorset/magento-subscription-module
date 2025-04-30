@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework/ObjectManager/etc/config.xsd">
+    <preference for="Drd\Subscribe\Api\Data\SubscriptionInterface"
+                type="Drd\Subscribe\Model\Subscription" />
+
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="drd_convert_item_options"
+                type="Drd\Subscribe\Plugin\ConvertItemOptionsPlugin" />
+    </type>
+
+    <preference for="Drd\Subscribe\Api\SubscriptionRepositoryInterface"
+                type="Drd\Subscribe\Model\SubscriptionRepository"/>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="drd_subscribe_reorder_now" xsi:type="object">Drd\Subscribe\Console\ReorderNowCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Sales\Api\Data\OrderItemInterface">
+        <plugin name="drd_order_item_extension_attributes"
+                type="Drd\Subscribe\Plugin\OrderItemExtensionAttributesPlugin"
+                sortOrder="10"/>
+    </type>
+
+    <type name="Drd\Subscribe\Model\Subscription">
+        <plugin name="drd_subscription_beforesave"
+                type="Drd\Subscribe\Plugin\SubscriptionBeforeSavePlugin" />
+    </type>
+</config>

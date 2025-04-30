@@ -1,0 +1,12 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+
+<?php if ($block->getParentOrder()): ?>
+    <div class="box-information">
+        <strong><?= __('Subscription Parent Order:') ?></strong><br/>
+        <a href="<?= $block->escapeUrl($block->getParentOrderUrl()) ?>">
+            #<?= $block->getParentOrder()->getIncrementId() ?>
+        </a>
+    </div>
+<?php endif; ?>

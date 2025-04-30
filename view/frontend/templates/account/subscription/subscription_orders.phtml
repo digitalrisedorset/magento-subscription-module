@@ -1,0 +1,43 @@
+<?php
+/** @var \Drd\Subscribe\Block\Account\Subscription\SubscriptionOrders $block */
+/** @var \Drd\Subscribe\ViewModel\SubscribeOrders $viewModel */
+$viewModel = $block->getData('viewModel');
+$orders = $viewModel->getSubscriptionOrders();
+?>
+
+<div id="subscription-orders-modal">
+    <h2><?= __('Related Subscription Orders') ?></h2>
+    <?php if ($orders): ?>
+        <ul class="related-orders">
+            <?php foreach ($orders as $relatedOrder): ?>
+                <li>
+                    <?= __('Order') ?> #<?= $relatedOrder->getIncrementId() ?> —
+                    <?= $relatedOrder->getCreatedAt() ?> —
+                    <a href="<?= $block->getUrl('sales/order/view', ['order_id' => $relatedOrder->getId()]) ?>">
+                        <?= __('View Details') ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else: ?>
+        <p><?= __('No related subscription orders found.') ?></p>
+    <?php endif; ?>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "#show-subscription-orders": {
+            "Magento_Ui/js/modal/modal": {
+                "type": "popup",
+                "title": "<?= __('Related Subscription Orders') ?>",
+            "buttons": [{
+                "text": "<?= __('Close') ?>",
+                "class": "action-secondary",
+                "click": function () {
+                    this.closeModal();
+                }
+            }]
+        }
+    }
+}
+</script>

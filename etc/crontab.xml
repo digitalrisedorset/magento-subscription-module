@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework/Event/etc/crontab.xsd">
+    <group id="default">
+        <job name="drd_subscription_reorder" instance="Drd\Subscribe\Cron\Reorder" method="execute">
+            <schedule>*/15 * * * *</schedule> <!-- every 15 min for testing -->
+        </job>
+    </group>
+</config>

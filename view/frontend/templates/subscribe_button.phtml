@@ -1,0 +1,17 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Catalog\Model\Product $product */
+$product = $block->getLayout()->getBlock('product.info')->getProduct();
+?>
+
+<!-- Subscribe button triggers the modal -->
+<button type="button"
+        class="action primary"
+        id="subscribe-button"
+        data-mage-init='{
+            "Drd_Subscribe/js/subscribe-modal": {
+                "modalSelector": "#drd-subscribe-modal"
+            }
+        }'>
+    Subscribe
+</button>

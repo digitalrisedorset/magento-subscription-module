@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework/View/Layout/etc/page_configuration.xsd">
+
+    <body>
+        <referenceBlock name="order_info">
+            <block class="Drd\Subscribe\Block\Adminhtml\Order\View\Subscription"
+                   name="drd.subscription.parent_order"
+                   template="Drd_Subscribe::order/view/subscription_parent.phtml"
+                   before="order_account"/>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,24 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Drd\Subscribe\ViewModel\SubscribeData $viewModel */
+$viewModel = $block->getData('viewModel');
+?>
+
+<div id="drd-subscribe-modal" style="display: none;">
+    <h2>Subscribe to Product <?= $viewModel->getProductSku() ?></h2>
+
+    <form action="<?= $viewModel->getSubmitUrl() ?>" method="post">
+        <input type="hidden" name="product_id" value="<?= $viewModel->getProductId() ?>" />
+
+        <label for="interval">Select subscription interval:</label>
+        <select name="interval" id="interval">
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+        </select>
+
+        <div style="margin-top: 10px;">
+            <button type="submit" class="action primary">Add to cart for Subcription now</button>
+        </div>
+    </form>
+</div>

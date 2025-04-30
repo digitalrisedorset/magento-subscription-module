@@ -1,0 +1,42 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+
+<h2><?= __('Your Subscriptions') ?></h2>
+
+<?php $orders = $block->getSubscriptionOrders(); ?>
+
+<?php if (count($orders)): ?>
+    <ul class="subscription-list">
+        <?php foreach ($orders as $order): ?>
+            <?php foreach ($order->getItems() as $item):
+                $subscription = $item->getExtensionAttributes()?->getSubscription();
+                if (!$subscription) continue;
+                $sku = $subscription->getSku();
+                $recurrence = $subscription->getRecurrence();
+                $nextOrderDate = $subscription->getNextOrderDate();
+                $subscriptionStatus = $subscription->getSatus();
+            ?>
+            <li>
+                <?= __('Product SKU:') ?> <?= $sku ?><br>
+                <?= __('Recurrence:') ?> <?= $recurrence ?><br>
+                <?= __('Next Order Date:') ?> <?= $nextOrderDate ?><br>
+                <?= __('Subscription Status:') ?> <?= $subscriptionStatus ?><br>
+                <a href="<?= $block->getUrl('sales/order/view', ['order_id' => $order->getId()]) ?>">
+                    <?= __('View Original Order Details') ?>
+                </a>
+                <button class="view-subscription-orders"
+                        data-mage-init='{"subscriptionModal": {
+                        "parentOrderId": "<?= $order->getId() ?>",
+                        "ajaxUrl": "<?= $block->getUrl('subscribe/account/subscriptionorders') ?>"
+                    }}'>
+                    <?= __('View Subscription Orders') ?>
+                </button>
+            </li>
+            <hr>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+    </ul>
+<?php else: ?>
+    <p><?= __('You have no subscriptions yet.') ?></p>
+<?php endif; ?>
