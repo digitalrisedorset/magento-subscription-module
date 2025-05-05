@@ -33,7 +33,7 @@ class SubscribeData implements ArgumentInterface
         return (int) $this->request->getParam('id');
     }
 
-    public function getSubmitUrl(): string
+    public function getSubscribeUrl(): string
     {
         return $this->urlBuilder->getUrl('subscribe/index/submit');
     }

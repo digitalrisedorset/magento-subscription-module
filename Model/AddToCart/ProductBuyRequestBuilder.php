@@ -2,6 +2,7 @@
 
 namespace Drd\Subscribe\Model\AddToCart;
 
+use Drd\Subscribe\Model\Config\Data as SubscriptionPlanProvider;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\DataObject;
@@ -11,24 +12,36 @@ use Magento\Framework\Serialize\SerializerInterface;
 class ProductBuyRequestBuilder
 {
     private SerializerInterface $serializer;
+    private SubscriptionPlanProvider $subscriptionPlanProvider;
 
     /**
+     * @param SubscriptionPlanProvider $subscriptionPlanProvider
      * @param SerializerInterface $serializer
      */
     public function __construct(
+        SubscriptionPlanProvider $subscriptionPlanProvider,
         SerializerInterface $serializer
     ) {
         $this->serializer = $serializer;
+        $this->subscriptionPlanProvider = $subscriptionPlanProvider;
     }
 
-    public function getProductBuyRequest(ProductInterface $product, $recurrence, $subscription, $superAttributes = null): DataObject
+    public function getProductBuyRequest(ProductInterface $product, $subscriptionPlanId, $superAttributes = null): DataObject
     {
+        $plan = $this->subscriptionPlanProvider->getById($subscriptionPlanId);
+
+        if (!$plan) {
+            throw new LocalizedException(
+                __('The subscription plan is missing.')
+            );
+        }
+
         $buyRequest = [
             'product' => $product->getId(),
             'qty' => 1,
             'options' => [
-                'subscription' => $subscription,
-                'recurrence' => $recurrence
+                'subscription_plan_id' => $plan->getId(),
+                'recurrence' => $plan->getFrequency(),
             ]
         ];
 

@@ -13,7 +13,11 @@
                    name="drd.subscribe.account"
                    template="Drd_Subscribe::account/subscriptions.phtml"
                    cacheable="false"
-            />
+            >
+                <arguments>
+                    <argument name="viewModel" xsi:type="object">Drd\Subscribe\ViewModel\MySubscriptionsViewModel</argument>
+                </arguments>
+            </block>
         </referenceContainer>
     </body>
 </page>

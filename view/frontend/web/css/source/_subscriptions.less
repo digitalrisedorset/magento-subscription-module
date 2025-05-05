@@ -1,0 +1,111 @@
+.subscription-list {
+    list-style: none;
+    padding: 0;
+
+    .subscription-card {
+        border: 1px solid @color-gray80;
+        background-color: @color-white;
+        border-radius: 4px;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+
+        .subscription-header {
+            position: relative;
+            padding-right: 160px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-bottom: 1px solid @border-color__base;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+
+            .subscription-started {
+                position: absolute;
+                right: 0;
+                top: 0;
+                font-size: 0.95rem;
+                font-weight: 400;
+                color: @text__color__muted;
+
+                i.icon-calendar {
+                    display: inline-block;
+                    width: 16px;
+                    height: 16px;
+                    margin-right: 0.3rem;
+                    background: url('@{baseDir}images/calendar.svg') no-repeat center;
+                    background-size: contain;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        .subscription-info {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: @text__color;
+
+            div {
+                margin-bottom: 0.5rem;
+            }
+
+            strong {
+                display: inline-block;
+                min-width: 130px;
+                color: @text__color;
+                font-weight: 600;
+            }
+
+            .status-active {
+                color: @color-green;
+                font-weight: 600;
+            }
+
+            .status-paused {
+                color: @color-yellow;
+            }
+
+            .status-cancelled {
+                color: @color-error__text;
+            }
+        }
+
+        .subscription-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+
+            button,
+            .skip-subscription-form {
+                display: inline-block;
+            }
+
+            .skip-subscription-form {
+                margin: 0;
+                padding: 0;
+
+                button {
+                    white-space: nowrap;
+                }
+            }
+
+            .action.secondary {
+                font-size: 0.95rem;
+                padding: 0.4rem 0.75rem;
+                min-width: 160px;
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .subscription-header {
+        .subscription-started {
+            position: static;
+            display: block;
+            margin-top: 0.5rem;
+        }
+    }
+}

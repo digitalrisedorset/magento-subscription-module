@@ -50,13 +50,12 @@ class Submit extends Action
         }
 
         $productId = (int) $request->getParam('product_id');
-        $recurrence = $request->getParam('interval'); // e.g., 'monthly'
-        $subscription = 1;
+        $subscriptionPlanId = $request->getParam('subscription_plan_id'); // e.g., 'monthly'
         $superAttributes = $request->getParam('super_attribute_snapshot');
 
         try {
             $product = $this->productRepository->getById($productId);
-            $buyRequest = $this->productBuyRequestBuilder->getProductBuyRequest($product, $recurrence, $subscription, $superAttributes);
+            $buyRequest = $this->productBuyRequestBuilder->getProductBuyRequest($product, $subscriptionPlanId, $superAttributes);
             $this->cart->addProduct($product, $buyRequest);
             $this->cart->save();
 

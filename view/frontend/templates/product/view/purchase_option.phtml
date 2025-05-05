@@ -1,0 +1,45 @@
+<!-- view/frontend/templates/product/view/purchase_option.phtml -->
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Catalog\Model\Product $product */
+$product = $block->getLayout()->getBlock('product.info')->getProduct();
+/** @var \Drd\Subscribe\ViewModel\ProductSubscription $viewModel */
+$viewModel = $block->getData('viewModel');
+$plans = $viewModel->getAssignedPlans($product);
+?>
+
+<?php if ($viewModel->isProductSubscriptionEnabled($product)): ?>
+<div class="drd-subscribe">
+    <div id="drd-subscription-block"
+         data-mage-init='{"Drd_Subscribe/js/subscription-toggle": {}}'>
+        <div class="field purchase-mode-selector">
+            <label>
+                <input type="radio" name="purchase_mode" value="one_time" checked>
+                One-time purchase
+            </label>
+            <label>
+                <input type="radio" name="purchase_mode" value="subscribe">
+                Subscribe & Save
+            </label>
+        </div>
+
+        <?php if (!empty($plans)): ?>
+            <div class="field subscription-plan-selector" style="display: none;">
+                <div class="fieldset subscription">
+                    <legend><?= __('Subscription Options') ?></legend>
+                    <?php foreach ($plans as $plan): ?>
+                        <label class="plan-option">
+                            <input type="radio" name="subscription_plan_id" value="<?= $plan->getId() ?>">
+                            <?= $plan->getLabel() ?>
+                        </label>
+                        <?php if ($plan->getTerms()): ?>
+                            <div class="subscription-terms">
+                                <a href="<?= $plan->getTerms() ?>" target="_blank">Terms & Conditions</a>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+<?php endif; ?>
