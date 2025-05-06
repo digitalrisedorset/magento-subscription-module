@@ -111,7 +111,20 @@ Stored on **configurable parent** for simplicity and reuse
 
 ---
 
+## ⚠️ Known Issues
+
+### Wishlist Integration Limitation
+
+This module customizes the cart item renderer blocks (`default`, `simple`, and `configurable`) to inject subscription details. 
+Due to how Magento processes layout XML and module load order, the `Move to Wishlist` button (injected by `Magento_Wishlist` into `checkout.cart.item.renderers.default.actions`) **may not render correctly**.
+At present, full compatibility with Magento's Wishlist module **is not guaranteed**. 
+The cart item actions block exists as expected, but **Wishlist's layout injection may be skipped** if the renderer blocks are not available when it runs.
+We recommend testing the integration thoroughly if Wishlist is a required feature.
+
+---
+
 ## 📅 License
 
 This module is proprietary but may be open-sourced in future.
 Built by \[Your Name / Your Company].
+

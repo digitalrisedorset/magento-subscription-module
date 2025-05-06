@@ -16,12 +16,6 @@ $viewModel = $block->getData('viewModel');
     <div id="drd-subscription-block"
          data-mage-init='{"Drd_Subscribe/js/subscription-toggle": {}}'>
 
-        <?= $block->getChildHtml('product.purchase.options') ?>
-
-        <div class="subscription-action" style="display: none;">
-            <button type="submit" class="action primary" id="subscribe-button">
-                Subscribe
-            </button>
-        </div>
+        <?= $block->getChildHtml() ?>
     </div>
 </form>

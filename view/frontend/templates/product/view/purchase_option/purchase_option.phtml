@@ -19,12 +19,14 @@ $plans = $viewModel->getAssignedPlans($product);
             </label>
             <label>
                 <input type="radio" name="purchase_mode" value="subscribe">
-                Subscribe & Save
+                <?= $viewModel->getSubscribeLabel($product) ?>
             </label>
         </div>
 
         <?php if (!empty($plans)): ?>
             <div class="field subscription-plan-selector" style="display: none;">
+                <input type="hidden" name="form_key" value="<?= $block->getFormKey() ?>" />
+
                 <div class="fieldset subscription">
                     <legend><?= __('Subscription Options') ?></legend>
                     <?php foreach ($plans as $plan): ?>
@@ -38,6 +40,11 @@ $plans = $viewModel->getAssignedPlans($product);
                             </div>
                         <?php endif; ?>
                     <?php endforeach; ?>
+            </div>
+            <div class="subscription-action" style="display: none;">
+                <button type="submit" class="action primary" id="subscribe-button">
+                    Subscribe
+                </button>
             </div>
         <?php endif; ?>
     </div>

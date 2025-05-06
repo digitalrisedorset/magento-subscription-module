@@ -1,0 +1,14 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Catalog\Model\Product $product */
+$product = $block->getLayout()->getBlock('product.info')->getProduct();
+/** @var \Drd\Subscribe\ViewModel\ProductSubscription $viewModel */
+$viewModel = $block->getData('viewModel');
+$plans = $viewModel->getAssignedPlans($product);
+$hasOnePlan = is_array($plans) && count($plans) === 1;
+?>
+<?php if ($hasOnePlan): ?>
+    <?= $block->getChildHtml('product.purchase.options.oneplan') ?>
+<?php else: ?>
+    <?= $block->getChildHtml('product.purchase.options') ?>
+<?php endif; ?>

@@ -74,4 +74,20 @@ class ProductSubscription implements ArgumentInterface
         return $maxDiscount > 0 ? $maxDiscount . '%' : null;
     }
 
+    public function getSubscribeLabel(ProductInterface $product): string
+    {
+        $label = __('Subscribe & Save');
+        $plans = $this->getAssignedPlans($product);
+        $maxDiscount = $this->getMaxSubscriptionDiscount($product);
+
+        if (count($plans) === 1) {
+            $label = sprintf('%s %d%% Off', $label, $maxDiscount);
+        }
+
+        if (count($plans) > 1) {
+            $label = sprintf('%s up to %d%% Off', $label, $maxDiscount);
+        }
+
+        return (string)$label;
+    }
 }

@@ -1,0 +1,42 @@
+<!-- view/frontend/templates/product/view/purchase_single_option.phtml -->
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Catalog\Model\Product $product */
+$product = $block->getLayout()->getBlock('product.info')->getProduct();
+/** @var \Drd\Subscribe\ViewModel\ProductSubscription $viewModel */
+$viewModel = $block->getData('viewModel');
+$plans = $viewModel->getAssignedPlans($product);
+$maxDiscount = $viewModel->getMaxSubscriptionDiscount($product);
+?>
+
+<?php if ($viewModel->isProductSubscriptionEnabled($product)): ?>
+
+<div class="drd-subscribe">
+    <div>
+        <div class="field purchase-single-mode">
+            <label>
+                Or <?= $viewModel->getSubscribeLabel($product) ?>
+            </label>
+        </div>
+
+        <div class="field subscription-plan">
+            <div class="fieldset subscription">
+                <?php foreach ($plans as $plan): ?>
+                    <input type="hidden" name="subscription_plan_id" value="<?= $plan->getId() ?>">
+                    <input type="hidden" name="form_key" value="<?= $block->getFormKey() ?>" />
+
+                    <?php if ($plan->getTerms()): ?>
+                        <div class="subscription-terms">
+                            <a href="<?= $plan->getTerms() ?>" target="_blank">Terms & Conditions</a>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+            <div class="subscription-action-one">
+                <button type="submit" class="action primary" id="subscribe-button">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
