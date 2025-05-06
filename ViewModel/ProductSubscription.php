@@ -61,4 +61,17 @@ class ProductSubscription implements ArgumentInterface
             return null;
         }
     }
+
+    public function getMaxSubscriptionDiscount(ProductInterface $product): ?string
+    {
+        $plans = $this->getAssignedPlans($product);
+
+        $maxDiscount = 0;
+        foreach ($plans as $plan) {
+            $maxDiscount = max($maxDiscount, (float) $plan->getDiscount());
+        }
+
+        return $maxDiscount > 0 ? $maxDiscount . '%' : null;
+    }
+
 }
