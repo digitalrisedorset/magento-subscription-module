@@ -4,12 +4,22 @@ namespace Drd\Subscribe\Api\Data;
 
 interface SubscriptionInterface
 {
+    public const FIELD_ORIGINAL_ORDER_ID = 'original_order_id';
+    public const FIELD_SKU = 'sku';
+    public const FIELD_RECURRENCE = 'recurrence';
+    public const FIELD_NEXT_ORDER_DATE = 'next_order_date';
+    public const FIELD_STATUS = 'status';
+    public const FIELD_ORDER_ITEM_ID = 'order_item_id';
+    public const FIELD_SKIP_NEXT_ORDER = 'skip_next_order';
+    public const FIELD_CREATED_AT = 'created_at';
+    public const FIELD_UPDATED_AT = 'updated_at';
+
     /**
      * Get order ID
      *
      * @return int
      */
-    public function getOrderId(): int;
+    public function getOriginalOrderId(): int;
 
     /**
      * Get order Item ID
@@ -24,7 +34,7 @@ interface SubscriptionInterface
      * @param int $orderId
      * @return $this
      */
-    public function setOrderId(int $orderId);
+    public function setOriginalOrderId(int $orderId);
 
     /**
      * Set order ID

@@ -3,8 +3,10 @@
 namespace Drd\Subscribe\Model;
 
 use Drd\Subscribe\Api\Data\SubscriptionInterface;
+use Drd\Subscribe\Model\ReorderServiceProcessor\OrderBuyRequestBuilder;
 use Drd\Subscribe\Model\ReorderServiceProcessor\PaymentHandler;
 use Drd\Subscribe\Model\ReorderServiceProcessor\ShippingHandler;
+use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Sales\Model\OrderFactory;
 use Magento\Sales\Model\Order;
 use Magento\Quote\Model\QuoteFactory;
@@ -15,6 +17,7 @@ use Psr\Log\LoggerInterface;
 
 class ReorderServiceProcessor
 {
+
     /**
      * @param OrderFactory $orderFactory
      * @param QuoteFactory $quoteFactory
@@ -31,10 +34,13 @@ class ReorderServiceProcessor
         private CartManagementInterface     $cartManagement,
         private CartRepositoryInterface     $cartRepository,
         private CustomerRepositoryInterface $customerRepository,
+        private ProductRepositoryInterface  $productRepository,
+        private OrderBuyRequestBuilder      $orderBuyRequestBuilder,
         private ShippingHandler             $shippingHandler,
         private PaymentHandler              $paymentHandler,
         private LoggerInterface             $logger
-    ) {}
+    ) {
+    }
 
     /**
      * @param SubscriptionInterface $subscription
@@ -60,10 +66,10 @@ class ReorderServiceProcessor
                     continue;
                 }
 
-                $product = $orderItem->getProduct();
-                $buyRequest = new \Magento\Framework\DataObject(
-                    $orderItem->getProductOptions()['info_buyRequest'] ?? []
-                );
+                $buyRequest = $this->orderBuyRequestBuilder->getBuyRequestWithProductOptions($orderItem);
+                if ($buyRequest === null) continue;
+
+                $product = $this->productRepository->get($orderItem->getSku(), false, $order->getStoreId());
 
                 $quote->addProduct($product, $buyRequest);
             }

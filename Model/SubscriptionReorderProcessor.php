@@ -2,70 +2,58 @@
 
 namespace Drd\Subscribe\Model;
 
-use Magento\Sales\Model\ResourceModel\Order\CollectionFactory as OrderCollectionFactory;
-use Psr\Log\LoggerInterface;
-use Magento\Sales\Api\OrderRepositoryInterface;
+use Drd\Subscribe\Model\ReorderServiceProcessor\OrderFinder;
 use Magento\Framework\Api\SearchCriteriaBuilder;
+use Psr\Log\LoggerInterface;
 
 class SubscriptionReorderProcessor
 {
-    private OrderRepositoryInterface $orderRepository;
-    private SearchCriteriaBuilder $searchCriteriaBuilder;
     private ReorderServiceProcessor $reorderService;
-    private OrderItemOptionsExtractor $optionsExtractor;
     private LoggerInterface $logger;
+    private SubscriptionRepository $subscriptionRepository;
+    private ReorderServiceProcessor\OrderFinder $orderFinder;
 
+    /**
+     * @param SubscriptionRepository $subscriptionRepository
+     * @param ReorderServiceProcessor $reorderService
+     * @param OrderFinder $orderFinder
+     * @param LoggerInterface $logger
+     */
     public function __construct(
-        OrderRepositoryInterface    $orderRepository,
-        SearchCriteriaBuilder       $searchCriteriaBuilder,
-        ReorderServiceProcessor     $reorderService,
-        OrderItemOptionsExtractor   $optionsExtractor,
-        LoggerInterface             $logger
+        SubscriptionRepository    $subscriptionRepository,
+        ReorderServiceProcessor   $reorderService,
+        OrderFinder $orderFinder,
+        LoggerInterface           $logger
     ) {
-        $this->orderRepository = $orderRepository;
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->reorderService = $reorderService;
-        $this->optionsExtractor = $optionsExtractor;
         $this->logger = $logger;
+        $this->subscriptionRepository = $subscriptionRepository;
+        $this->orderFinder = $orderFinder;
     }
 
     public function process(): void
     {
-        $searchCriteria = $this->searchCriteriaBuilder
-            ->addFilter('status', ['complete', 'processing'], 'in')
-            //->addFilter('customer_id', true, 'notnull') // ✅ Exclude guest orders
-            ->addFilter('customer_id', 4) // ✅ Exclude guest orders
-            ->setPageSize(100)
-            ->create();
+        $today = new \DateTimeImmutable('today');
 
-        $orders = $this->orderRepository->getList($searchCriteria)->getItems();
+        $dueSubscriptions = $this->subscriptionRepository->getDueSubscriptions($today);
 
-        foreach ($orders as $order) {
-            if (!$this->orderHasSubscription($order)) {
+        $ordersById = $this->orderFinder->getValidOriginOrders($dueSubscriptions);
+
+        foreach ($dueSubscriptions as $subscription) {
+            $orderId = $subscription->getOrderId();
+
+            if (!isset($ordersById[$orderId])) {
+                $this->logger->error("Missing original order #$orderId for subscription #{$subscription->getId()}");
                 continue;
             }
 
             try {
+                $order = $ordersById[$orderId];
                 $this->logger->info('Reordering subscription for order #' . $order->getIncrementId());
-                foreach ($order->getItems() as $item) {
-                    $subscription = $item->getExtensionAttributes()->getSubscription();
-                    if ($subscription) {
-                        $this->reorderService->reorder($subscription, $order);
-                    }
-                }
+                $this->reorderService->reorder($subscription, $order);
             } catch (\Exception $e) {
                 $this->logger->error('Failed reorder for order #' . $order->getIncrementId() . ': ' . $e->getMessage());
             }
         }
-    }
-
-    private function orderHasSubscription(\Magento\Sales\Model\Order $order): bool
-    {
-        foreach ($order->getAllItems() as $item) {
-            if ($this->optionsExtractor->isItemSubscribed($item)) {
-                return true;
-            }
-        }
-        return false;
     }
 }

@@ -3,6 +3,7 @@
 namespace Drd\Subscribe\Model\ProductSubscription;
 
 use Drd\Subscribe\Api\Data\SubscriptionInterface;
+use Drd\Subscribe\Api\SubscriptionRepositoryInterface;
 use Drd\Subscribe\Model\ResourceModel\Subscription as SubscriptionResource;
 use Drd\Subscribe\Model\SubscriptionFactory;
 use Magento\Sales\Model\Order;
@@ -13,6 +14,7 @@ class SubscriptionPersister
     private SubscriptionFactory $subscriptionFactory;
     private SubscriptionResource $subscriptionResource;
     private NextSubscriptionDateCalculator $nextSubscriptionDateCalculator;
+    private SubscriptionRepositoryInterface $subscriptionRepository;
 
     /**
      * @param SubscriptionFactory $subscriptionFactory
@@ -22,11 +24,13 @@ class SubscriptionPersister
     public function __construct(
         SubscriptionFactory $subscriptionFactory,
         SubscriptionResource $subscriptionResource,
-        NextSubscriptionDateCalculator $nextSubscriptionDateCalculator
+        NextSubscriptionDateCalculator $nextSubscriptionDateCalculator,
+        SubscriptionRepositoryInterface $subscriptionRepository
     ) {
         $this->subscriptionFactory = $subscriptionFactory;
         $this->subscriptionResource = $subscriptionResource;
         $this->nextSubscriptionDateCalculator = $nextSubscriptionDateCalculator;
+        $this->subscriptionRepository = $subscriptionRepository;
     }
 
     /**
@@ -37,15 +41,13 @@ class SubscriptionPersister
      */
     public function createProductSubscription(Order $order, Item $orderItem, SubscriptionInterface|array $optionSubscription)
     {
+        /** @var \Drd\Subscribe\Api\Data\SubscriptionInterface $subscription */
         $subscription = $this->subscriptionFactory->create();
-        $subscription->setData([
-            'order_id' => $order->getId(),
-            'order_item_id' => $orderItem->getId(),
-            'sku' => $orderItem->getSku(),
-            'recurrence' => $optionSubscription['recurrence'],
-        ]);
-
-        $subscription->save();
+        $subscription->setOriginalOrderId($order->getId());
+        $subscription->setRecurrence($optionSubscription['recurrence']);
+        $subscription->setOrderItemId($orderItem->getId());
+        $subscription->setSku($orderItem->getSku());
+        $this->subscriptionRepository->save($subscription);
     }
 
     public function skipNextSubscriptionOrder(int $subscriptionId)
