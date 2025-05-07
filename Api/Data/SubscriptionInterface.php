@@ -93,4 +93,49 @@ interface SubscriptionInterface
      * @return $this
      */
     public function setStatus(string $status);
+
+    /**
+     * Get SkipNextOrder flag
+     *
+     * @return bool
+     */
+    public function getSkipNextOrder(): bool;
+
+    /**
+     * Set SkipNextOrder flag
+     *
+     * @param bool $skip
+     * @return $this
+     */
+    public function setSkipNextOrder(bool $skip);
+
+    /**
+     * Get create date
+     *
+     * @return string
+     */
+    public function getCreatedAt(): string;
+
+    /**
+     * Set create date
+     *
+     * @param string $date
+     * @return $this
+     */
+    public function setCreatedAt(string $date);
+
+    /**
+     * Get create date
+     *
+     * @return string
+     */
+    public function getUpdatedAt(): string;
+
+    /**
+     * Set create date
+     *
+     * @param string $date
+     * @return $this
+     */
+    public function setUpdatedAt(string $date);
 }

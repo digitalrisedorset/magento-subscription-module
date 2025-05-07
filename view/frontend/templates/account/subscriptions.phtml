@@ -56,7 +56,9 @@ $viewModel = $block->getData('viewModel');
                               class="inline skip-subscription-form">
                             <?= $block->getBlockHtml('formkey') ?>
                             <input type="hidden" name="subscription_id" value="<?= $subscription->getId() ?>" />
-                            <button type="submit" class="action secondary skip-subscription">
+                            <button type="submit"
+                                    class="action secondary skip-subscription"
+                                <?= $subscription->getSkipNextOrder() ? 'disabled' : '' ?>>
                                 <?= __('Skip Next Order') ?>
                             </button>
                         </form>

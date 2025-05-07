@@ -12,6 +12,7 @@ use Magento\Framework\Data\Form\FormKey\Validator as FormKeyValidator;
 class Submit extends Action
 {
     protected $productRepository;
+
     protected $cart;
     protected $resultRedirectFactory;
     protected $formKeyValidator;

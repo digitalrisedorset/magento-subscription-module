@@ -28,6 +28,8 @@ A lightweight, professional-grade Magento 2 module to enable **subscription-base
 * Subscription plans loaded from `subscription_plans.xml`
 * Clean frontend templates with ViewModels
 * Fully theme-compatible (Luma-compliant)
+* Conditional template logic to separate single-plan and multi-plan flows
+* No JS required for single-plan UX
 
 ---
 
@@ -76,7 +78,10 @@ Stored on **configurable parent** for simplicity and reuse
 
 ### On PDP:
 
-* Choose between one-time and subscription
+* For products with multiple plans: customers can choose between "One-time Purchase" and "Subscribe & Save" with a clear radio selector
+* For products with a single subscription plan: a streamlined “Subscribe & Save” option appears as an alternative to Add to Cart
+* Clean, standalone form with Terms & Conditions link and CSRF protection
+* Add to Cart remains unchanged to preserve familiar UX
 * See available plans and frequencies
 * Subscribe with discounted pricing
 

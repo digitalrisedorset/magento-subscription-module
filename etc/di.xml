@@ -12,6 +12,11 @@
                 type="Drd\Subscribe\Plugin\ConvertItemOptionsPlugin" />
     </type>
 
+    <type name="Drd\Subscribe\Model\Subscription">
+        <plugin name="subscription_before_save"
+                type="Drd\Subscribe\Plugin\SubscriptionBeforeSavePlugin" sortOrder="10"/>
+    </type>
+
     <preference for="Drd\Subscribe\Api\SubscriptionRepositoryInterface"
                 type="Drd\Subscribe\Model\SubscriptionRepository"/>
 

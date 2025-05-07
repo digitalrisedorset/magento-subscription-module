@@ -14,7 +14,7 @@ $maxDiscount = $subscriptionViewModel->getMaxSubscriptionDiscount($product);
     <?php if ($maxDiscount): ?>
     <div class="subscription-login-required">
         <?= __('Log in to Save up to %1 by Subscribing to this product', $maxDiscount) ?>
-        <a href="<?= $block->getUrl('customer/account/login') ?>"><?= __('Log In') ?></a>
+        <a href="<?= $viewModel->getLoginUrl($block) ?>"><?= __('Log In') ?></a>
     </div>
     <?php endif; ?>
 <?php endif; ?>

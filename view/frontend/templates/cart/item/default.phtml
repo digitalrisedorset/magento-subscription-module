@@ -51,7 +51,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
             <?php if ($_options = $block->getOptionList()): ?>
                 <dl class="item-options">
                     <?php foreach ($_options as $_option): ?>
-                        <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                        <?php $_formatedOptionValue = $viewModel->getFormatedOptionValue($block, $_option) ?>
                         <dt><?= $block->escapeHtml($_option['label']) ?></dt>
                         <dd>
                             <?php if (isset($_formatedOptionValue['full_view'])): ?>

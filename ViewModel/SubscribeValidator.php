@@ -23,4 +23,11 @@ class SubscribeValidator implements ArgumentInterface
     {
         return $this->httpContext->getValue(CustomerContext::CONTEXT_AUTH);
     }
+
+    public function getLoginUrl($block)
+    {
+        return $block->getUrl('customer/account/login', [
+            'referer' => base64_encode($block->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]))
+        ]);
+    }
 }
