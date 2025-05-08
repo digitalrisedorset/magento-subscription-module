@@ -4,12 +4,23 @@ namespace Drd\Subscribe\Api\Data;
 
 interface SubscriptionInterface
 {
+    public const FIELD_ORIGINAL_ORDER_ID = 'original_order_id';
+    public const FIELD_SKU = 'sku';
+    public const FIELD_RECURRENCE = 'recurrence';
+    public const FIELD_NEXT_ORDER_DATE = 'next_order_date';
+    public const FIELD_STATUS = 'status';
+    public const FIELD_ORDER_ITEM_ID = 'order_item_id';
+    public const FIELD_SKIP_NEXT_ORDER = 'skip_next_order';
+    public const FIELD_PAYMENT_TOKEN = 'payment_token';
+    public const FIELD_CREATED_AT = 'created_at';
+    public const FIELD_UPDATED_AT = 'updated_at';
+
     /**
      * Get order ID
      *
      * @return int
      */
-    public function getOrderId(): int;
+    public function getOriginalOrderId(): int;
 
     /**
      * Get order Item ID
@@ -24,7 +35,7 @@ interface SubscriptionInterface
      * @param int $orderId
      * @return $this
      */
-    public function setOrderId(int $orderId);
+    public function setOriginalOrderId(int $orderId);
 
     /**
      * Set order ID
@@ -93,4 +104,64 @@ interface SubscriptionInterface
      * @return $this
      */
     public function setStatus(string $status);
+
+    /**
+     * Get SkipNextOrder flag
+     *
+     * @return bool
+     */
+    public function getSkipNextOrder(): bool;
+
+    /**
+     * Set SkipNextOrder flag
+     *
+     * @param bool $skip
+     * @return $this
+     */
+    public function setSkipNextOrder(bool $skip);
+
+    /**
+     * Get create date
+     *
+     * @return string
+     */
+    public function getCreatedAt(): string;
+
+    /**
+     * Set create date
+     *
+     * @param string $date
+     * @return $this
+     */
+    public function setCreatedAt(string $date);
+
+    /**
+     * Get create date
+     *
+     * @return string
+     */
+    public function getUpdatedAt(): string;
+
+    /**
+     * Set create date
+     *
+     * @param string $date
+     * @return $this
+     */
+    public function setUpdatedAt(string $date);
+
+    /**
+     * Get Order Payment token
+     *
+     * @return string
+     */
+    public function getPaymentToken(): string;
+
+    /**
+     * Set Order Payment token
+     *
+     * @param string $token
+     * @return $this
+     */
+    public function setPaymentToken(string $token);
 }

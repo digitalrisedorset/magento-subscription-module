@@ -1,8 +1,10 @@
 <?php
 /** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Drd\Subscribe\ViewModel\MySubscriptionsViewModel $viewModel */
+$viewModel = $block->getData('viewModel');
 ?>
 
-<h2><?= __('Your Subscriptions') ?></h2>
+<h2><?= __('Your Active Subscriptions') ?></h2>
 
 <?php $orders = $block->getSubscriptionOrders(); ?>
 
@@ -12,28 +14,56 @@
             <?php foreach ($order->getItems() as $item):
                 $subscription = $item->getExtensionAttributes()?->getSubscription();
                 if (!$subscription) continue;
-                $sku = $subscription->getSku();
-                $recurrence = $subscription->getRecurrence();
-                $nextOrderDate = $subscription->getNextOrderDate();
-                $subscriptionStatus = $subscription->getSatus();
             ?>
-            <li>
-                <?= __('Product SKU:') ?> <?= $sku ?><br>
-                <?= __('Recurrence:') ?> <?= $recurrence ?><br>
-                <?= __('Next Order Date:') ?> <?= $nextOrderDate ?><br>
-                <?= __('Subscription Status:') ?> <?= $subscriptionStatus ?><br>
-                <a href="<?= $block->getUrl('sales/order/view', ['order_id' => $order->getId()]) ?>">
-                    <?= __('View Original Order Details') ?>
-                </a>
-                <button class="view-subscription-orders"
-                        data-mage-init='{"subscriptionModal": {
-                        "parentOrderId": "<?= $order->getId() ?>",
-                        "ajaxUrl": "<?= $block->getUrl('subscribe/account/subscriptionorders') ?>"
-                    }}'>
-                    <?= __('View Subscription Orders') ?>
-                </button>
-            </li>
-            <hr>
+                <li class="subscription-card">
+                    <div class="subscription-header">
+                        <strong><?= __('Subscription for %1', $subscription->getSku()) ?></strong>
+                        <span class="subscription-started">
+                            <i class="icon-calendar" aria-hidden="true"></i>
+                            <?= __('Started on: %1', $viewModel->formatCreatedAt($subscription)) ?>
+                        </span>
+                    </div>
+
+                    <div class="subscription-info">
+                        <div><strong><?= __('Recurrence:') ?></strong> <?= $viewModel->formatRecurrence($subscription) ?></div>
+                        <div><strong><?= __('Next Order Date:') ?></strong> <?= $viewModel->formatNextOrderDate($subscription) ?></div>
+                        <div>
+                            <strong><?= __('Status:') ?></strong>
+                            <span class="status status-<?= strtolower($subscription->getStatus()) ?>">
+                                <?= $viewModel->getDisplayStatus($subscription) ?>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="subscription-actions">
+                        <button type="button"
+                                class="action secondary"
+                                onclick="window.location.href='<?= $block->getUrl('sales/order/view', ['order_id' => $order->getId()]) ?>'">
+                            <?= __('View Original Order') ?>
+                        </button>
+
+                        <button type="button"
+                                class="action secondary view-subscription-orders"
+                                data-mage-init='{"subscriptionModal": {
+                "parentOrderId": "<?= $order->getId() ?>",
+                "ajaxUrl": "<?= $block->getUrl('subscribe/account/subscriptionorders') ?>"
+            }}'>
+                            <?= __('View Subscription Orders') ?>
+                        </button>
+
+                        <form method="post"
+                              action="<?= $block->getUrl('subscribe/account/skip') ?>"
+                              class="inline skip-subscription-form">
+                            <?= $block->getBlockHtml('formkey') ?>
+                            <input type="hidden" name="subscription_id" value="<?= $subscription->getId() ?>" />
+                            <button type="submit"
+                                    class="action secondary skip-subscription"
+                                <?= $subscription->getSkipNextOrder() ? 'disabled' : '' ?>>
+                                <?= __('Skip Next Order') ?>
+                            </button>
+                        </form>
+                    </div>
+                </li>
             <?php endforeach; ?>
         <?php endforeach; ?>
     </ul>

@@ -1,0 +1,40 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.extrahint">
+            <block name="product.subscribe"
+                   template="Drd_Subscribe::product/view/subscribe_wrapper.phtml"
+                   before="-">
+                <arguments>
+                    <argument name="viewModel" xsi:type="object">Drd\Subscribe\ViewModel\SubscribeValidator</argument>
+                    <argument name="subscriptionViewModel" xsi:type="object">Drd\Subscribe\ViewModel\ProductSubscription</argument>
+                </arguments>
+                <block name="product.info.subscribe.button"
+                       template="Drd_Subscribe::product/view/subscribe_button.phtml"
+                       before="-">
+                    <arguments>
+                        <argument name="viewModel" xsi:type="object">Drd\Subscribe\ViewModel\SubscribeData</argument>
+                    </arguments>
+                    <block name="product.purchase.options.wrapper"
+                           template="Drd_Subscribe::product/view/purchase_option_wrapper.phtml">
+                        <arguments>
+                            <argument name="viewModel" xsi:type="object">Drd\Subscribe\ViewModel\ProductSubscription</argument>
+                        </arguments>
+                        <block name="product.purchase.options"
+                               template="Drd_Subscribe::product/view/purchase_option/purchase_option.phtml">
+                            <arguments>
+                                <argument name="viewModel" xsi:type="object">Drd\Subscribe\ViewModel\ProductSubscription</argument>
+                            </arguments>
+                        </block>
+                        <block name="product.purchase.options.oneplan"
+                               template="Drd_Subscribe::product/view/purchase_option/purchase_single_option.phtml">
+                            <arguments>
+                                <argument name="viewModel" xsi:type="object">Drd\Subscribe\ViewModel\ProductSubscription</argument>
+                            </arguments>
+                        </block>
+                    </block>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/config.xsd">
+    <default>
+        <payment>
+            <drd_subscribe_payment>
+                <active>1</active>
+                <model>Drd\Subscribe\Model\Payment\Subscribe</model>
+                <title>Subscription Payment</title>
+                <order_status>processing</order_status>
+                <is_offline>1</is_offline>
+            </drd_subscribe_payment>
+        </payment>
+    </default>
+</config>

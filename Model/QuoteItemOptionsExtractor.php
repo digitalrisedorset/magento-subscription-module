@@ -2,16 +2,25 @@
 
 namespace Drd\Subscribe\Model;
 
+use Drd\Subscribe\Model\ProductSubscription\SubscriptionTranslator;
 use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Quote\Model\Quote\Item;
 
 class QuoteItemOptionsExtractor
 {
     protected SerializerInterface $serializer;
+    private SubscriptionTranslator $subscriptionTranslator;
 
-    public function __construct(SerializerInterface $serializer)
-    {
+    /**
+     * @param SerializerInterface $serializer
+     * @param SubscriptionTranslator $subscriptionTranslator
+     */
+    public function __construct(
+        SerializerInterface $serializer,
+        SubscriptionTranslator $subscriptionTranslator
+    ) {
         $this->serializer = $serializer;
+        $this->subscriptionTranslator = $subscriptionTranslator;
     }
 
     public function getQuoteItemCustomOption(Item $item): ?array
@@ -35,44 +44,14 @@ class QuoteItemOptionsExtractor
         $options = $buyRequest['options'];
         $result = [];
 
-        if (!empty($options['subscription'])) {
-            $result[] = [
-                'label' => __('Subscription'),
-                'value' => __('Yes')
-            ];
-        }
-
         if (!empty($options['recurrence'])) {
             $result[] = [
                 'label' => __('Recurrence'),
-                'value' => ucfirst($options['recurrence'])
+                'value' => $options['recurrence'],
+                'value_display' => $this->subscriptionTranslator->getFormatFrequency($options['recurrence'])
             ];
         }
 
         return !empty($result) ? $result : null;
-    }
-
-    /**
-     * @param Item $item
-     * @return bool
-     */
-    public function isItemSubscribed(Item $item): bool
-    {
-        $options = $item->getProductOptions();
-
-        if (!isset($options['additional_options']) || !is_array($options['additional_options'])) {
-            return false;
-        }
-
-        foreach ($options['additional_options'] as $option) {
-            if (
-                strtolower($option['label']) === 'subscription' &&
-                strtolower($option['value']) === 'yes'
-            ) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

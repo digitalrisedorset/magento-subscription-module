@@ -14,23 +14,38 @@ class SubscriptionOrders extends Action
     protected $layoutFactory;
     protected $request;
     private SubscribeOrders $subscribeOrdersViewModel;
+    private Session $customerSession;
 
+    /**
+     * @param Context $context
+     * @param RawFactory $resultRawFactory
+     * @param LayoutFactory $layoutFactory
+     * @param RequestInterface $request
+     * @param SubscribeOrders $subscribeOrdersViewModel
+     * @param Session $customerSession
+     */
     public function __construct(
         Context $context,
         RawFactory $resultRawFactory,
         LayoutFactory $layoutFactory,
         RequestInterface $request,
-        SubscribeOrders $subscribeOrdersViewModel
+        SubscribeOrders $subscribeOrdersViewModel,
+        Session $customerSession
     ) {
         $this->resultRawFactory = $resultRawFactory;
         $this->layoutFactory = $layoutFactory;
         $this->request = $request;
         parent::__construct($context);
         $this->subscribeOrdersViewModel = $subscribeOrdersViewModel;
+        $this->customerSession = $customerSession;
     }
 
     public function execute()
     {
+        if (!$this->customerSession->isLoggedIn()) {
+            return $this->_redirect('customer/account/login');
+        }
+
         $parentOrderId = $this->request->getParam('parent_order_id');
 
         $layout = $this->layoutFactory->create();

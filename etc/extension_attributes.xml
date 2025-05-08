@@ -4,4 +4,7 @@
         <attribute code="subscription" type="Drd\Subscribe\Api\Data\SubscriptionInterface" />
     </extension_attributes>
 
+    <extension_attributes for="Magento\Catalog\Api\Data\ProductInterface">
+        <attribute code="subscription_config" type="Drd\Subscribe\Api\Data\ProductSuscriptionConfigInterface" />
+    </extension_attributes>
 </config>

@@ -1,0 +1,21 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Catalog\Model\Product $product */
+$product = $block->getLayout()->getBlock('product.info')->getProduct();
+/** @var \Drd\Subscribe\ViewModel\SubscribeData $viewModel */
+$viewModel = $block->getData('viewModel');
+?>
+
+
+<form id="subscribe-form" method="post" action="<?= $viewModel->getSubscribeUrl() ?>">
+    <?= $block->getFormKeyHtml(); ?>
+    <input type="hidden" name="product_id" value="<?= $product->getId(); ?>" />
+    <input type="hidden" name="super_attribute_snapshot" id="super_attribute_snapshot">
+    <input type="hidden" name="subscription_plan_id" id="selected_subscription_plan_id" />
+
+    <div id="drd-subscription-block"
+         data-mage-init='{"Drd_Subscribe/js/subscription-toggle": {}}'>
+
+        <?= $block->getChildHtml() ?>
+    </div>
+</form>

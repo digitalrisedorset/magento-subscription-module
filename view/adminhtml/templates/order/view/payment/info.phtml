@@ -1,0 +1,31 @@
+<?php
+/**
+ * @var \Drd\Subscribe\Block\Payment\Info\Subscribe $block
+ * @see \Magento\Payment\Block\Info
+ */
+$paymentTitle = $block->getMethod()->getConfigData('title', $block->getInfo()->getOrder()->getStoreId());
+?>
+<?= $this->escapeHtml($paymentTitle) ?>
+
+<?php if ($block->getTransactionId()): ?>
+    <div>
+        <strong>Transaction ID:</strong>
+        <code><?= $this->escapeHtml($block->getTransactionId()) ?></code>
+    </div>
+<?php endif; ?>
+
+<?php if ($block->getPaymentType()): ?>
+    <div>
+        <strong>Payment Type:</strong>
+        <?= $this->escapeHtml($block->getPaymentType()) ?>
+    </div>
+<?php endif; ?>
+
+<?php if ($block->getPaymentDescription()): ?>
+    <div>
+        <strong>Payment Info:</strong>
+        <?= $this->escapeHtml($block->getPaymentDescription()) ?>
+    </div>
+<?php endif; ?>
+
+

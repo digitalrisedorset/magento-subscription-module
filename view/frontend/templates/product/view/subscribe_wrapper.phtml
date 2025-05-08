@@ -1,0 +1,20 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Drd\Subscribe\ViewModel\SubscribeValidator $viewModel */
+$viewModel = $block->getData('viewModel');
+/** @var \Drd\Subscribe\ViewModel\ProductSubscription $subscriptionViewModel */
+$subscriptionViewModel = $block->getData('subscriptionViewModel');
+/** @var \Magento\Catalog\Model\Product $product */
+$product = $block->getLayout()->getBlock('product.info')->getProduct();
+$maxDiscount = $subscriptionViewModel->getMaxSubscriptionDiscount($product);
+?>
+<?php if ($viewModel->isCustomerLoggedIn()): ?>
+    <?= $block->getChildHtml(); ?>
+<?php else: ?>
+    <?php if ($maxDiscount): ?>
+    <div class="subscription-login-required">
+        <?= __('Log in to Save up to %1 by Subscribing to this product', $maxDiscount) ?>
+        <a href="<?= $viewModel->getLoginUrl($block) ?>"><?= __('Log In') ?></a>
+    </div>
+    <?php endif; ?>
+<?php endif; ?>

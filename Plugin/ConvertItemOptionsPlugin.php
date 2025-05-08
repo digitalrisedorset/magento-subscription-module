@@ -2,7 +2,6 @@
 
 namespace Drd\Subscribe\Plugin;
 
-use Magento\Quote\Model\Quote\Item as QuoteItem;
 use Magento\Sales\Model\Order\Item as OrderItem;
 use Magento\Quote\Model\Quote\Item\ToOrderItem;
 use Drd\Subscribe\Model\QuoteItemOptionsExtractor;

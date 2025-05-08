@@ -12,63 +12,104 @@ class Subscription extends AbstractModel implements SubscriptionInterface
         $this->_init(ResourceModel\Subscription::class);
     }
 
-    public function getOrderId(): int
+    public function getOriginalOrderId(): int
     {
-        return (int) $this->getData('order_id');
+        return (int) $this->getData(self::FIELD_ORIGINAL_ORDER_ID);
+    }
+
+    public function setOriginalOrderId(int $orderId): self
+    {
+        return $this->setData(self::FIELD_ORIGINAL_ORDER_ID, $orderId);
     }
 
     public function getSku(): string
     {
-        return (string) $this->getData('sku');
+        return (string) $this->getData(self::FIELD_SKU);
+    }
+
+    public function setSku(string $sku): self
+    {
+        return $this->setData(self::FIELD_SKU, $sku);
     }
 
     public function getRecurrence(): string
     {
-        return (string) $this->getData('recurrence');
+        return (string) $this->getData(self::FIELD_RECURRENCE);
+    }
+
+    public function setRecurrence(string $recurrence): self
+    {
+        return $this->setData(self::FIELD_RECURRENCE, $recurrence);
     }
 
     public function getNextOrderDate(): string
     {
-        return (string) $this->getData('next_order_date');
+        return (string) $this->getData(self::FIELD_NEXT_ORDER_DATE);
+    }
+
+    public function setNextOrderDate(string $nextOrderDate): self
+    {
+        return $this->setData(self::FIELD_NEXT_ORDER_DATE, $nextOrderDate);
     }
 
     public function getStatus(): string
     {
-        return (string) $this->getData('status');
+        return (string) $this->getData(self::FIELD_STATUS);
     }
 
-    public function setOrderId(int $orderId)
+    public function setStatus(string $status): self
     {
-        return $this->setData('order_id', $orderId);
-    }
-
-    public function setSku(string $sku)
-    {
-        return $this->setData('sku', $sku);
-    }
-
-    public function setRecurrence(string $recurrence)
-    {
-        return $this->setData('recurrence', $recurrence);
-    }
-
-    public function setNextOrderDate(string $nextOrderDate)
-    {
-        return $this->setData('next_order_date', $nextOrderDate);
-    }
-
-    public function setStatus(string $status)
-    {
-        return $this->setData('status', $status);
+        return $this->setData(self::FIELD_STATUS, $status);
     }
 
     public function getOrderItemId(): int
     {
-        return (int) $this->getData('order_item_id');
+        return (int) $this->getData(self::FIELD_ORDER_ITEM_ID);
     }
 
-    public function setOrderItemId(int $orderItemId)
+    public function setOrderItemId(int $orderItemId): self
     {
-        return $this->setData('order_item_id', $orderItemId);
+        return $this->setData(self::FIELD_ORDER_ITEM_ID, $orderItemId);
     }
+
+    public function getCreatedAt(): string
+    {
+        return $this->getData(self::FIELD_CREATED_AT);
+    }
+
+    public function setCreatedAt(string $date): self
+    {
+        return $this->setData(self::FIELD_CREATED_AT, $date);
+    }
+
+    public function getUpdatedAt(): string
+    {
+        return $this->getData(self::FIELD_UPDATED_AT);
+    }
+
+    public function setUpdatedAt(string $date): self
+    {
+        return $this->setData(self::FIELD_UPDATED_AT, $date);
+    }
+
+    public function getSkipNextOrder(): bool
+    {
+        return (bool) $this->getData(self::FIELD_SKIP_NEXT_ORDER);
+    }
+
+    public function setSkipNextOrder(bool $skip): self
+    {
+        return $this->setData(self::FIELD_SKIP_NEXT_ORDER, $skip);
+    }
+
+    public function getPaymentToken(): string
+    {
+        return (string)$this->getData(self::FIELD_PAYMENT_TOKEN);
+    }
+
+    public function setPaymentToken(string $token)
+    {
+        return $this->setData(self::FIELD_PAYMENT_TOKEN, $token);
+    }
+
 }

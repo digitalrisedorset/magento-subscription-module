@@ -3,40 +3,42 @@
 namespace Drd\Subscribe\Observer;
 
 use Drd\Subscribe\Model\OrderItemOptionsExtractor;
+use Drd\Subscribe\Model\ProductSubscription\SubscriptionPersister;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Serialize\SerializerInterface;
-use Drd\Subscribe\Model\SubscriptionFactory;
+use Magento\Sales\Model\Order;
+use Magento\Sales\Model\Order\Item;
 use Psr\Log\LoggerInterface;
 
 class CreateSubscriptionFromOrderObserver implements ObserverInterface
 {
-    private SubscriptionFactory $subscriptionFactory;
     private SerializerInterface $serializer;
     private LoggerInterface $logger;
     private OrderItemOptionsExtractor $orderItemOptionsExtractor;
+    private SubscriptionPersister $subscriptionPersister;
 
     /**
-     * @param SubscriptionFactory $subscriptionFactory
      * @param SerializerInterface $serializer
      * @param OrderItemOptionsExtractor $orderItemOptionsExtractor
+     * @param SubscriptionPersister $subscriptionPersister
      * @param LoggerInterface $logger
      */
     public function __construct(
-        SubscriptionFactory                            $subscriptionFactory,
-        SerializerInterface                            $serializer,
+        SerializerInterface       $serializer,
         OrderItemOptionsExtractor $orderItemOptionsExtractor,
-        LoggerInterface                                $logger
+        SubscriptionPersister     $subscriptionPersister,
+        LoggerInterface           $logger
     ) {
-        $this->subscriptionFactory = $subscriptionFactory;
         $this->serializer = $serializer;
         $this->logger = $logger;
         $this->orderItemOptionsExtractor = $orderItemOptionsExtractor;
+        $this->subscriptionPersister = $subscriptionPersister;
     }
 
     public function execute(Observer $observer)
     {
-        /** @var \Magento\Sales\Model\Order $order */
+        /** @var Order $order */
         $order = $observer->getEvent()->getOrder();
 
         foreach ($order->getAllVisibleItems() as $orderItem) {
@@ -55,21 +57,19 @@ class CreateSubscriptionFromOrderObserver implements ObserverInterface
             }
 
             try {
-                $subscription = $this->subscriptionFactory->create();
-                $subscription->setData([
-                    'order_id' => $order->getId(),
-                    'order_item_id' => $orderItem->getId(),
-                    'sku' => $sku,
-                    'recurrence' => $optionSubscription['recurrence'],
-                ]);
-                $subscription->save();
+                $this->subscriptionPersister->createProductSubscription($order, $orderItem, $optionSubscription);
             } catch (\Throwable $e) {
                 $this->logger->error('[Subscription] Failed to create for order ' . $order->getIncrementId() . ': ' . $e->getMessage());
             }
         }
     }
 
-    private function findOrderItemBySku(\Magento\Sales\Model\Order $order, string $sku): ?\Magento\Sales\Model\Order\Item
+    /**
+     * @param Order $order
+     * @param string $sku
+     * @return Item|null
+     */
+    private function findOrderItemBySku(Order $order, string $sku): ?\Magento\Sales\Model\Order\Item
     {
         foreach ($order->getAllVisibleItems() as $item) {
             if ($item->getSku() === $sku) {

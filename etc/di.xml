@@ -4,6 +4,9 @@
     <preference for="Drd\Subscribe\Api\Data\SubscriptionInterface"
                 type="Drd\Subscribe\Model\Subscription" />
 
+    <preference for="Drd\Subscribe\Api\Data\ProductSuscriptionConfigInterface"
+                type="Drd\Subscribe\Model\ProductSubscription\SubscriptionConfig" />
+
     <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
         <plugin name="drd_convert_item_options"
                 type="Drd\Subscribe\Plugin\ConvertItemOptionsPlugin" />
@@ -26,8 +29,16 @@
                 sortOrder="10"/>
     </type>
 
-    <type name="Drd\Subscribe\Model\Subscription">
-        <plugin name="drd_subscription_beforesave"
-                type="Drd\Subscribe\Plugin\SubscriptionBeforeSavePlugin" />
+    <type name="Drd\Subscribe\Model\Config\Data">
+        <arguments>
+            <argument name="reader" xsi:type="object">\Drd\Subscribe\Model\Config\SubscriptionPlans\Reader\Proxy</argument>
+            <argument name="cacheId" xsi:type="string">drd_subscription_plan_config</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="drd_subscribe_cart_plugin"
+                type="Drd\Subscribe\Plugin\Cart\ApplySubscriptionPricing"
+                sortOrder="10"/>
     </type>
 </config>

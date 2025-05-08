@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:module:Drd_Subscribe:etc/subscription_plans.xsd">
+    <plans>
+        <plan id="weekly_10">
+            <label>Weekly - 10% Off</label>
+            <discount>10</discount>
+            <frequency>1w</frequency>
+            <terms>subscription_tos_v2</terms>
+        </plan>
+        <plan id="monthly_5">
+            <label>Monthly - 5% Off</label>
+            <discount>5</discount>
+            <frequency>1m</frequency>
+            <terms>subscription_tos_v2</terms>
+        </plan>
+    </plans>
+</config>

@@ -1,25 +1,5 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <body>
-        <referenceBlock name="product.info.addtocart">
-            <block name="product.info.subscribe.button" template="Drd_Subscribe::subscribe_button.phtml" after="-">
-                <arguments>
-                    <argument name="viewModel" xsi:type="object">Drd\Subscribe\ViewModel\SubscribeData</argument>
-                </arguments>
-            </block>
-        </referenceBlock>
-
-        <!-- Inject Modal Content (hidden initially) -->
-        <referenceContainer name="content">
-            <block name="drd.subscribe.modal"
-                   template="Drd_Subscribe::form.phtml"
-                   before="-">
-                <arguments>
-                    <argument name="viewModel" xsi:type="object">Drd\Subscribe\ViewModel\SubscribeData</argument>
-                </arguments>
-            </block>
-        </referenceContainer>
-
-    </body>
+    <update handle="drd_subscribe_product_subscription"/>
 </page>

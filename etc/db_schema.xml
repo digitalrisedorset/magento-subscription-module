@@ -4,12 +4,13 @@
 
     <table name="drd_subscribe_subscription" resource="default" engine="innodb" comment="DRD Subscription Table">
         <column name="subscription_id" xsi:type="int" nullable="false" identity="true" unsigned="true" comment="Subscription ID"/>
-        <column name="order_id" xsi:type="int" nullable="false" unsigned="true" comment="Order ID"/>
+        <column name="original_order_id" xsi:type="int" nullable="false" unsigned="true" comment="Order ID"/>
         <column name="order_item_id" xsi:type="int" unsigned="true" nullable="false" comment="Order Item ID"/>
         <column name="sku" xsi:type="varchar" nullable="false" length="255" comment="Product SKU"/>
         <column name="recurrence" xsi:type="varchar" nullable="false" length="64" comment="Recurrence"/>
-        <column name="next_order_date" xsi:type="datetime" nullable="false" comment="Next Order Date"/>
-        <column name="status" xsi:type="varchar" nullable="false" length="32" default="active" comment="Status"/>
+        <column name="skip_next_order" xsi:type="boolean" nullable="false" default="0" comment="Skip Next Order Flag"/>
+        <column name="next_order_date" xsi:type="timestamp" nullable="false" comment="Next Order Date"/>
+        <column name="payment_token" xsi:type="varchar" nullable="false" length="64" comment="Braintree Payment Token"/>
         <column name="created_at" xsi:type="timestamp" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
         <column name="updated_at" xsi:type="timestamp" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
 
@@ -18,7 +19,7 @@
         </constraint>
 
         <index referenceId="DRD_SUBSCRIBE_ORDER_ID_IDX" indexType="btree">
-            <column name="order_id"/>
+            <column name="original_order_id"/>
         </index>
 
         <index referenceId="DRD_SUBSCRIBE_ORDER_ITEM_ID_IDX">
@@ -31,7 +32,7 @@
 
         <constraint xsi:type="foreign" referenceId="DRD_SUBSCRIBE_ORDER_ID_FK"
                     table="drd_subscribe_subscription"
-                    column="order_id"
+                    column="original_order_id"
                     referenceTable="sales_order"
                     referenceColumn="entity_id"
                     onDelete="CASCADE"/>
@@ -42,5 +43,21 @@
                     referenceTable="sales_order_item"
                     referenceColumn="item_id"
                     onDelete="CASCADE"/>
+    </table>
+
+    <table name="quote" resource="checkout" engine="innodb">
+        <column name="subscription_parent_order_id"
+                xsi:type="int"
+                unsigned="true"
+                nullable="true"
+                comment="Subscription Parent Order ID"/>
+    </table>
+
+    <table name="sales_order" resource="sales" engine="innodb">
+        <column name="subscription_parent_order_id"
+                xsi:type="int"
+                unsigned="true"
+                nullable="true"
+                comment="Subscription Parent Order ID"/>
     </table>
 </schema>

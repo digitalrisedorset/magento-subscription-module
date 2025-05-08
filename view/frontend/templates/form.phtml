@@ -9,6 +9,7 @@ $viewModel = $block->getData('viewModel');
 
     <form action="<?= $viewModel->getSubmitUrl() ?>" method="post">
         <input type="hidden" name="product_id" value="<?= $viewModel->getProductId() ?>" />
+        <input type="hidden" name="super_attribute_snapshot" id="super_attribute_snapshot">
 
         <label for="interval">Select subscription interval:</label>
         <select name="interval" id="interval">
