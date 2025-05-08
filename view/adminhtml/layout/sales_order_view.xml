@@ -9,5 +9,9 @@
                    template="Drd_Subscribe::order/view/subscription_parent.phtml"
                    before="order_account"/>
         </referenceBlock>
+<!--        <referenceBlock name="payment_additional_info">-->
+<!--            <block name="drd_subscription_payment_info"-->
+<!--                   template="Drd_Subscribe::order/view/payment/info.phtml"/>-->
+<!--        </referenceBlock>-->
     </body>
 </page>

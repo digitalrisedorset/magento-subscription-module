@@ -33,14 +33,12 @@ class SubscriptionReorderProcessor
 
     public function process(): void
     {
-        $today = new \DateTimeImmutable('today');
-
-        $dueSubscriptions = $this->subscriptionRepository->getDueSubscriptions($today);
+        $dueSubscriptions = $this->subscriptionRepository->getDueSubscriptions();
 
         $ordersById = $this->orderFinder->getValidOriginOrders($dueSubscriptions);
 
         foreach ($dueSubscriptions as $subscription) {
-            $orderId = $subscription->getOrderId();
+            $orderId = $subscription->getOriginalOrderId();
 
             if (!isset($ordersById[$orderId])) {
                 $this->logger->error("Missing original order #$orderId for subscription #{$subscription->getId()}");

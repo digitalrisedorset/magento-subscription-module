@@ -6,8 +6,6 @@ use Drd\Subscribe\Model\ProductSubscription\SubscriptionTranslator;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Framework\Phrase;
-use DateTime;
-use DateTimeZone;
 
 class MySubscriptionsViewModel implements ArgumentInterface
 {
@@ -41,24 +39,38 @@ class MySubscriptionsViewModel implements ArgumentInterface
         $now = new \DateTime('now', new \DateTimeZone($this->timezone->getConfigTimezone()));
         $next = new \DateTime($subscription->getNextOrderDate(), new \DateTimeZone($this->timezone->getConfigTimezone()));
 
-        $days = $this->getNumberDaysBetweenTwoDates($now, $next);
+        $interval = $now->diff($next);
+        $isPast = $next < $now;
 
-        if ($days === 0) {
-            return __('Today');
-        } elseif ($days > 0 && $days <= 7) {
-            return $days === 1
-                ? __('In 1 day')
-                : __('In %1 days', $days);
-        } elseif ($days > 7) {
-            return __('On %1', $this->timezone->formatDate($next, \IntlDateFormatter::MEDIUM));
-        } else {
-            return __('Overdue (%1)', $this->timezone->formatDate($next, \IntlDateFormatter::MEDIUM));
+        $formattedDate = $this->timezone->formatDateTime($next, \IntlDateFormatter::MEDIUM, \IntlDateFormatter::SHORT); // includes time
+
+        if ($interval->days === 0 && !$isPast) {
+            return __('Today (%1)', $formattedDate);
         }
+
+        if (!$isPast && $interval->days <= 7) {
+            return $interval->days === 1
+                ? __('In 1 day (%1)', $formattedDate)
+                : __('In %1 days (%2)', $interval->days, $formattedDate);
+        }
+
+        if (!$isPast) {
+            return __('On %1', $formattedDate);
+        }
+
+        return __('Overdue (%1)', $formattedDate);
     }
 
-    public function formatStatus($subscription): string
+    public function getDisplayStatus($subscription): Phrase
     {
-        return ucfirst(strtolower($subscription->getStatus()));
+        $status = $subscription->getStatus();
+        $skipNext = $subscription->getSkipNextOrder();
+
+        if ($status === 'active' && $skipNext) {
+            return __('Active (Next Order Skipped)');
+        }
+
+        return __(ucfirst($status));
     }
 
     public function formatRecurrence($subscription): string

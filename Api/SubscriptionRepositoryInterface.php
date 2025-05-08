@@ -37,5 +37,5 @@ interface SubscriptionRepositoryInterface
      */
     public function delete(SubscriptionInterface $subscription): bool;
 
-    public function getDueSubscriptions(\DateTimeInterface $date): array;
+    public function getDueSubscriptions(): array;
 }

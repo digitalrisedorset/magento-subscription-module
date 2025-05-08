@@ -4,6 +4,7 @@ namespace Drd\Subscribe\Model\ProductSubscription;
 
 use Drd\Subscribe\Api\Data\SubscriptionInterface;
 use Drd\Subscribe\Api\SubscriptionRepositoryInterface;
+use Drd\Subscribe\Model\Payment\TokenReader;
 use Drd\Subscribe\Model\ResourceModel\Subscription as SubscriptionResource;
 use Drd\Subscribe\Model\SubscriptionFactory;
 use Magento\Sales\Model\Order;
@@ -15,22 +16,27 @@ class SubscriptionPersister
     private SubscriptionResource $subscriptionResource;
     private NextSubscriptionDateCalculator $nextSubscriptionDateCalculator;
     private SubscriptionRepositoryInterface $subscriptionRepository;
+    private TokenReader $tokenReader;
 
     /**
      * @param SubscriptionFactory $subscriptionFactory
      * @param SubscriptionResource $subscriptionResource
      * @param NextSubscriptionDateCalculator $nextSubscriptionDateCalculator
+     * @param SubscriptionRepositoryInterface $subscriptionRepository
+     * @param TokenReader $tokenReader
      */
     public function __construct(
         SubscriptionFactory $subscriptionFactory,
         SubscriptionResource $subscriptionResource,
         NextSubscriptionDateCalculator $nextSubscriptionDateCalculator,
-        SubscriptionRepositoryInterface $subscriptionRepository
+        SubscriptionRepositoryInterface $subscriptionRepository,
+        TokenReader $tokenReader
     ) {
         $this->subscriptionFactory = $subscriptionFactory;
         $this->subscriptionResource = $subscriptionResource;
         $this->nextSubscriptionDateCalculator = $nextSubscriptionDateCalculator;
         $this->subscriptionRepository = $subscriptionRepository;
+        $this->tokenReader = $tokenReader;
     }
 
     /**
@@ -47,6 +53,7 @@ class SubscriptionPersister
         $subscription->setRecurrence($optionSubscription['recurrence']);
         $subscription->setOrderItemId($orderItem->getId());
         $subscription->setSku($orderItem->getSku());
+        $subscription->setPaymentToken($this->tokenReader->getPaymentToken($order));
         $this->subscriptionRepository->save($subscription);
     }
 
@@ -59,6 +66,6 @@ class SubscriptionPersister
         $subscription->setNextOrderDate(
             $this->nextSubscriptionDateCalculator->calculateNextDate($subscription)
         );
-        $subscription->save();
+        $this->subscriptionRepository->save($subscription);
     }
 }

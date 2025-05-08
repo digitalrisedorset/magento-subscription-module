@@ -30,7 +30,7 @@ $viewModel = $block->getData('viewModel');
                         <div>
                             <strong><?= __('Status:') ?></strong>
                             <span class="status status-<?= strtolower($subscription->getStatus()) ?>">
-                                <?= $viewModel->formatStatus($subscription) ?>
+                                <?= $viewModel->getDisplayStatus($subscription) ?>
                             </span>
                         </div>
                     </div>

@@ -2,6 +2,7 @@
 
 namespace Drd\Subscribe\Model\ReorderServiceProcessor;
 
+use Magento\Framework\DataObject;
 use Psr\Log\LoggerInterface;
 
 class OrderBuyRequestBuilder
@@ -13,7 +14,7 @@ class OrderBuyRequestBuilder
 
     /**
      * @param $orderItem
-     * @return void|null
+     * @return DataObject|null
      */
     public function getBuyRequestWithProductOptions($orderItem)
     {
@@ -24,5 +25,6 @@ class OrderBuyRequestBuilder
         }
         $buyRequest = new \Magento\Framework\DataObject($buyRequestData);
 
+        return $buyRequest;
     }
 }

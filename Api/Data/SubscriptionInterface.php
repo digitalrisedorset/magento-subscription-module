@@ -11,6 +11,7 @@ interface SubscriptionInterface
     public const FIELD_STATUS = 'status';
     public const FIELD_ORDER_ITEM_ID = 'order_item_id';
     public const FIELD_SKIP_NEXT_ORDER = 'skip_next_order';
+    public const FIELD_PAYMENT_TOKEN = 'payment_token';
     public const FIELD_CREATED_AT = 'created_at';
     public const FIELD_UPDATED_AT = 'updated_at';
 
@@ -148,4 +149,19 @@ interface SubscriptionInterface
      * @return $this
      */
     public function setUpdatedAt(string $date);
+
+    /**
+     * Get Order Payment token
+     *
+     * @return string
+     */
+    public function getPaymentToken(): string;
+
+    /**
+     * Set Order Payment token
+     *
+     * @param string $token
+     * @return $this
+     */
+    public function setPaymentToken(string $token);
 }

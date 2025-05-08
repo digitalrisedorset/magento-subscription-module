@@ -10,7 +10,7 @@
         <column name="recurrence" xsi:type="varchar" nullable="false" length="64" comment="Recurrence"/>
         <column name="skip_next_order" xsi:type="boolean" nullable="false" default="0" comment="Skip Next Order Flag"/>
         <column name="next_order_date" xsi:type="timestamp" nullable="false" comment="Next Order Date"/>
-        <column name="status" xsi:type="varchar" nullable="false" default="active" length="32" comment="Subscription Status"/>
+        <column name="payment_token" xsi:type="varchar" nullable="false" length="64" comment="Braintree Payment Token"/>
         <column name="created_at" xsi:type="timestamp" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
         <column name="updated_at" xsi:type="timestamp" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
 

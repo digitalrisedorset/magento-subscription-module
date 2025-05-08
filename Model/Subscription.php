@@ -102,18 +102,14 @@ class Subscription extends AbstractModel implements SubscriptionInterface
         return $this->setData(self::FIELD_SKIP_NEXT_ORDER, $skip);
     }
 
-//    public function save()
-//    {
-//        if ($this->getStatus()) {
-//            $this->setStatus(strtolower($this->getStatus()));
-//        }
-//
-//        if (!$this->getNextOrderDate() && $this->getRecurrence()) {
-//            $this->setNextOrderDate(
-//                $this->nextSubscriptionDateCalculator->calculateNextDate($this)
-//            );
-//        }
-//
-//        parent::save();
-//    }
+    public function getPaymentToken(): string
+    {
+        return (string)$this->getData(self::FIELD_PAYMENT_TOKEN);
+    }
+
+    public function setPaymentToken(string $token)
+    {
+        return $this->setData(self::FIELD_PAYMENT_TOKEN, $token);
+    }
+
 }
