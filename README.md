@@ -6,6 +6,7 @@ A lightweight, professional-grade Magento 2 module to enable **subscription-base
 * Custom recurrence plans (weekly, monthly, etc.)
 * Dynamic subscription management
 * Seamless integration with cart, orders, and My Account
+* Server-side recurring order generation via `Drd_SubscribeBraintree`
 
 ---
 
@@ -17,6 +18,7 @@ A lightweight, professional-grade Magento 2 module to enable **subscription-base
 * Automatically creates subscriptions on successful order
 * View and manage active subscriptions in **My Account**
 * “Skip Next Order” functionality
+* Server-side reordering with secure Braintree transaction
 * Custom ViewModels and LESS for polished integration
 
 ---
@@ -30,12 +32,13 @@ A lightweight, professional-grade Magento 2 module to enable **subscription-base
 * Fully theme-compatible (Luma-compliant)
 * Conditional template logic to separate single-plan and multi-plan flows
 * No JS required for single-plan UX
+* Integrates `PaymentTransactionHandlerInterface` for gateway-agnostic recurring payment processing
 
 ---
 
 ## 🔧 Installation
 
-> Coming soon as a composer package
+> Coming soon as a composer package  
 > Or clone directly into `app/code/Drd/Subscribe` and run:
 
 ```bash
@@ -69,7 +72,7 @@ Example:
 
 ### 2. Assign Plans to Products
 
-Use the `subscription_plan_ids` multiselect attribute
+Use the `subscription_plan_ids` multiselect attribute  
 Stored on **configurable parent** for simplicity and reuse
 
 ---
@@ -104,6 +107,7 @@ Stored on **configurable parent** for simplicity and reuse
 * ViewModels used throughout for clean templates
 * LESS is modular: `_subscriptions.less`, `_module.less`, etc.
 * All custom logic scoped to module — no core overrides
+* Reorder and payment logic modular via handler classes
 
 ---
 
@@ -113,6 +117,7 @@ Stored on **configurable parent** for simplicity and reuse
 * Scheduled recurring orders
 * Admin panel to manage active subscriptions
 * Email reminders for next order date
+* Support for additional payment gateways via handler plugin
 
 ---
 
@@ -120,16 +125,15 @@ Stored on **configurable parent** for simplicity and reuse
 
 ### Wishlist Integration Limitation
 
-This module customizes the cart item renderer blocks (`default`, `simple`, and `configurable`) to inject subscription details. 
-Due to how Magento processes layout XML and module load order, the `Move to Wishlist` button (injected by `Magento_Wishlist` into `checkout.cart.item.renderers.default.actions`) **may not render correctly**.
-At present, full compatibility with Magento's Wishlist module **is not guaranteed**. 
-The cart item actions block exists as expected, but **Wishlist's layout injection may be skipped** if the renderer blocks are not available when it runs.
+This module customizes the cart item renderer blocks (`default`, `simple`, and `configurable`) to inject subscription details.  
+Due to how Magento processes layout XML and module load order, the `Move to Wishlist` button (injected by `Magento_Wishlist` into `checkout.cart.item.renderers.default.actions`) **may not render correctly**.  
+At present, full compatibility with Magento's Wishlist module **is not guaranteed**.  
+The cart item actions block exists as expected, but **Wishlist's layout injection may be skipped** if the renderer blocks are not available when it runs.  
 We recommend testing the integration thoroughly if Wishlist is a required feature.
 
 ---
 
 ## 📅 License
 
-This module is proprietary but may be open-sourced in future.
-Built by \[Your Name / Your Company].
-
+This module is proprietary but may be open-sourced in future.  
+Built by [Your Name / Your Company].
