@@ -10,7 +10,7 @@ class SubscriptionTranslator
             '1w' => __('Every Week'),
             '2w' => __('Every 2 Weeks'),
             '1m' => __('Every Month'),
-            '3m' => __('Every 3 MAonths'),
+            '3m' => __('Every 3 Months'),
         ];
 
         return $map[$code] ?? $code;

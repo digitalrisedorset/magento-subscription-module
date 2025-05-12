@@ -15,7 +15,7 @@ class AddSubscriptionParentOrderColumn implements SchemaPatchInterface
         $this->moduleDataSetup = $moduleDataSetup;
     }
 
-    public function apply(): void
+    public function apply()
     {
         $this->moduleDataSetup->getConnection()->startSetup();
 

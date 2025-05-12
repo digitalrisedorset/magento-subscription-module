@@ -46,26 +46,6 @@ class ProductSubscription implements ArgumentInterface
         return $this->productSubscriptionConfig->getAssignedPlans();
     }
 
-    public function getProductId(): int
-    {
-        return (int) $this->request->getParam('id');
-    }
-
-    public function getSubmitUrl(): string
-    {
-        return $this->urlBuilder->getUrl('subscribe/index/submit');
-    }
-
-    public function getProductSku(): ?string
-    {
-        try {
-            $product = $this->productRepository->getById($this->getProductId());
-            return $product->getSku();
-        } catch (\Exception $e) {
-            return null;
-        }
-    }
-
     public function getMaxSubscriptionDiscount(ProductInterface $product): ?string
     {
         $plans = $this->getAssignedPlans($product);

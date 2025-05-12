@@ -42,13 +42,15 @@ class CartItemSubscriptionInfo implements ArgumentInterface
      */
     public function getDiscountLabel(Item $item): ?string
     {
+        /** @var \Magento\Framework\DataObject $plan */
         $plan = $this->getPlan($item);
+        /** @phpstan-ignore-next-line */
         if (!$plan || !$plan->getDiscount()) {
             return null;
         }
 
+        /** @phpstan-ignore-next-line */
         return __('Subscription Discount: %1%', $plan->getDiscount());
-
     }
 
     public function getFormatedOptionValue(Renderer $block, $_option)

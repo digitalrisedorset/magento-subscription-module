@@ -81,15 +81,4 @@ class MySubscriptionsViewModel implements ArgumentInterface
             )
         ));
     }
-
-    private function getNumberDaysBetweenTwoDates($now, $next)
-    {
-        $diff = $now->diff($next);
-        $seconds = ($diff->days * 24 * 3600) +
-            ($diff->h * 3600) +
-            ($diff->i * 60) +
-            $diff->s;
-
-        return ceil($seconds / 86400);
-    }
 }

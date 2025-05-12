@@ -70,6 +70,17 @@ Example:
 </plan>
 ```
 
+### Terms & Conditions Requirement
+Each subscription plan must be linked to a valid, active CMS block in order for the Terms & Conditions modal to render correctly on the product page.
+
+The CMS block identifier is passed via the plan configuration (e.g. weekly_10, monthly_15)
+
+If the block is missing, inactive, or incorrectly configured, the modal will fail to load
+
+CMS content is dynamically fetched via AJAX using this identifier
+
+- Recommendation: Create one CMS block per subscription frequency (e.g. subscription_weekly, subscription_monthly) and ensure they are active
+
 ### 2. Assign Plans to Products
 
 Use the `subscription_plan_ids` multiselect attribute  
