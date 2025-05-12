@@ -5,3 +5,32 @@
 @color-red: #dc3545;       // Bootstrap danger red
 @color-error__text: #e02b27; // Magento standard red
 
+// 🧩 Module fallback variables
+// These override missing theme values locally to make module styles self-contained.
+// In a real-world setup, these should be extended properly from the vendor theme
+// (e.g., by modifying the parent theme's _theme.less to inherit from Luma).
+
+// 🎨 Color palette (Bootstrap-inspired + Magento standard)
+@color-green:         #28a745;
+@color-yellow:        #ffc107;
+@color-red:           #dc3545;
+@color-error__text:   #e02b27; // Magento standard red
+@color-success:       #27ae60;
+@color-success-light: fade(@color-success, 10%);
+@color-gray93:        #ededed;
+@color-border:        #ddd;
+@color-bg:            #f9f9f9;
+@color-text:          #333;
+
+// ✍️ Text and typography
+@text-color:          @color-text;
+@heading__color:      @text-color;
+
+// 📐 Layout and spacing
+@indent__base:        16px;
+@button-padding:      @indent__base;
+
+// 🧱 Radius and shadow
+@border-radius__base: 8px;
+@border-radius:       8px;
+@shadow-subscribe:    0 2px 6px rgba(0, 0, 0, 0.05);

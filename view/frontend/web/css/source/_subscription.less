@@ -1,35 +1,46 @@
 .drd-subscribe {
     margin: @indent__base 0;
-    padding: 1rem 1rem;
-    border: 1px solid @color-gray80;
-    background-color: @color-white;
+    border: 1px solid @color-border;
+    padding: @indent__base + 4px; // 20px approx
+    border-radius: @border-radius__base;
+    background: @color-bg;
+    box-shadow: @shadow-subscribe;
+
     legend {
         font-weight: 600;
         font-size: 1.4rem;
         margin: @indent__base 0;
-        color: @primary__color;
-        border-bottom: 1px solid @border-color__base;
+        color: @heading__color;
+        border-bottom: 1px solid @color-border;
         padding-bottom: 0.5rem;
         display: block;
     }
+
     .plan-option {
         display: block;
         margin-top: 0.75rem;
+
+        &:hover {
+            background-color: @color-gray93;
+            border-radius: @border-radius;
+        }
     }
-    .plan-option:hover {
-        background-color: @color-gray93;
-        border-radius: 4px;
-    }
-    .purchase-mode-selector, .purchase-single-mode {
+
+    .purchase-mode-selector,
+    .purchase-single-mode {
         label {
-            margin: 0.5rem 1rem 0.5rem 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: @text-color;
+            display: block;
+            margin-bottom: 12px;
         }
     }
 
     .subscription-separator {
         text-align: center;
         margin: 1rem 0;
-        color: #666;
+        color: lighten(@text-color, 25%);
         font-style: italic;
     }
 
@@ -46,12 +57,25 @@
     input[type="radio"] {
         margin-right: 0.5rem;
     }
+
+    .big-subscribe-button {
+        font-size: 18px;
+        padding: 12px 24px;
+        background-color: @color-success;
+        border-radius: @border-radius;
+        border: none;
+        transition: background 0.3s ease;
+
+        &:hover {
+            background-color: darken(@color-success, 6%);
+        }
+    }
 }
 
 .subscription-login-required {
     background: @color-gray93;
     padding: 1.5rem;
-    border-radius: 4px;
+    border-radius: @border-radius;
     margin-bottom: 1.5rem;
     font-size: 1.1rem;
 }

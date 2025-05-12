@@ -7,10 +7,10 @@ class SubscriptionTranslator
     public function getFormatFrequency(string $code): string
     {
         $map = [
-            '1w' => __('Every week'),
-            '2w' => __('Every 2 weeks'),
-            '1m' => __('Every month'),
-            '3m' => __('Every 3 months'),
+            '1w' => __('Every Week'),
+            '2w' => __('Every 2 Weeks'),
+            '1m' => __('Every Month'),
+            '3m' => __('Every 3 MAonths'),
         ];
 
         return $map[$code] ?? $code;

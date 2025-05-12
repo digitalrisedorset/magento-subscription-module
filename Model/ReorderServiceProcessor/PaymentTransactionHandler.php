@@ -16,5 +16,6 @@ class PaymentTransactionHandler implements PaymentTransactionHandlerInterface
     public function processTransaction(SubscriptionInterface $subscription, Order $order): string
     {
         // overridden
+        return '';
     }
 }

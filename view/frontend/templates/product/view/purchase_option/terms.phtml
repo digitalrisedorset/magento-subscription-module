@@ -1,0 +1,42 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<div class="subscription-terms">
+    <a href="#" class="view-terms-link" data-cms-block="<?= $block->getBlockId() ?>">Terms & Conditions <?php echo $block->getBlockId(); ?></a>
+</div>
+
+<!-- Modal Container -->
+<div id="terms-modal" style="display:none;">
+    <div class="content" id="terms-modal-content">Loading…</div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "#view-terms-link": {
+            "Magento_Ui/js/modal/modal": {
+                "type": "popup",
+                "title": "Subscription Terms & Conditions",
+                "modalClass": "terms-popup",
+                "responsive": true,
+                "innerScroll": true,
+                "buttons": []
+            }
+        }
+    }
+</script>
+
+<script>
+    require(['jquery', 'Magento_Ui/js/modal/modal'], function ($, modal) {
+        var popup = modal({
+            type: 'popup',
+            title: 'Subscription Terms & Conditions',
+            innerScroll: true,
+            buttons: []
+        }, $('#terms-modal'));
+
+        $('#view-terms-link').on('click', function (e) {
+            e.preventDefault();
+            $('#terms-modal').modal('openModal');
+        });
+    });
+</script>

@@ -6,13 +6,13 @@
             <label>Weekly - 10% Off</label>
             <discount>10</discount>
             <frequency>1w</frequency>
-            <terms>subscription_tos_v2</terms>
+            <terms>subscription_weekly</terms>
         </plan>
         <plan id="monthly_5">
             <label>Monthly - 5% Off</label>
             <discount>5</discount>
             <frequency>1m</frequency>
-            <terms>subscription_tos_v2</terms>
+            <terms>subscription_monthly</terms>
         </plan>
     </plans>
 </config>

@@ -3,6 +3,7 @@
 namespace Drd\Subscribe\ViewModel;
 
 use Drd\Subscribe\Model\ProductSubscription\SubscriptionConfigReader;
+use Drd\Subscribe\Model\ProductSubscription\SubscriptionTranslator;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 
@@ -10,14 +11,17 @@ class ProductSubscription implements ArgumentInterface
 {
     private SubscriptionConfigReader $subscriptionConfigReader;
     private $productSubscriptionConfig;
+    private SubscriptionTranslator $subscriptionTranslator;
 
     /**
      * @param SubscriptionConfigReader $subscriptionConfigReader
      */
     public function __construct(
-        SubscriptionConfigReader $subscriptionConfigReader
+        SubscriptionConfigReader $subscriptionConfigReader,
+        SubscriptionTranslator $subscriptionTranslator
     ) {
         $this->subscriptionConfigReader = $subscriptionConfigReader;
+        $this->subscriptionTranslator = $subscriptionTranslator;
     }
 
     /**
@@ -81,7 +85,13 @@ class ProductSubscription implements ArgumentInterface
         $maxDiscount = $this->getMaxSubscriptionDiscount($product);
 
         if (count($plans) === 1) {
-            $label = sprintf('%s %d%% Off', $label, $maxDiscount);
+            $plan = current($plans);
+            $label = sprintf(
+                '%s %s %d%% Off',
+                $label,
+                $this->subscriptionTranslator->getFormatFrequency($plan->getFrequency()),
+                $maxDiscount
+            );
         }
 
         if (count($plans) > 1) {

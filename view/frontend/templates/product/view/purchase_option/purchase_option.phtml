@@ -35,14 +35,14 @@ $plans = $viewModel->getAssignedPlans($product);
                             <?= $plan->getLabel() ?>
                         </label>
                         <?php if ($plan->getTerms()): ?>
-                            <div class="subscription-terms">
-                                <a href="<?= $plan->getTerms() ?>" target="_blank">Terms & Conditions</a>
-                            </div>
+                            <a href="#" class="view-terms-link" data-cms-block="<?= $plan->getTerms() ?>">
+                                Terms & Conditions
+                            </a>
                         <?php endif; ?>
                     <?php endforeach; ?>
             </div>
             <div class="subscription-action" style="display: none;">
-                <button type="submit" class="action primary" id="subscribe-button">
+                <button type="submit" class="action primary big-subscribe-button" id="subscribe-button">
                     Subscribe
                 </button>
             </div>

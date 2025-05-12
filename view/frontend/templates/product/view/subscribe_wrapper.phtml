@@ -10,6 +10,18 @@ $maxDiscount = $subscriptionViewModel->getMaxSubscriptionDiscount($product);
 ?>
 <?php if ($viewModel->isCustomerLoggedIn()): ?>
     <?= $block->getChildHtml(); ?>
+
+    <div id="subscription-terms-modal" style="display:none;">
+        <div class="content" id="subscription-terms-modal-content">Loading…</div>
+    </div>
+
+    <script type="text/x-magento-init">
+        {
+            "#subscription-terms-modal": {
+                "Drd_Subscribe/js/subscribe-terms-modal": {}
+            }
+        }
+    </script>
 <?php else: ?>
     <?php if ($maxDiscount): ?>
     <div class="subscription-login-required">
