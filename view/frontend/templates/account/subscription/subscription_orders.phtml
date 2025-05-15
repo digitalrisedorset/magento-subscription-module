@@ -14,23 +14,9 @@ $orders = $viewModel->getSubscriptionOrders();
 
 <div id="subscription-orders-modal">
     <h2><?= __('Related Subscription Orders') ?></h2>
-    <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- if ($orders): ?>
+    <?php if ($orders): ?>
         <ul class="related-orders">
-            <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- foreach ($orders as $relatedOrder): ?>
+            <?php foreach ($orders as $relatedOrder): ?>
                 <li>
                     <?= __('Order') ?> #<?= $relatedOrder->getIncrementId() ?> —
                     <?= $relatedOrder->getCreatedAt() ?> —
@@ -38,32 +24,11 @@ declare(strict_types=1);
                         <?= __('View Details') ?>
                     </a>
                 </li>
-            <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- endforeach; ?>
+            <?php endforeach; ?>
         </ul>
-    <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- else: ?>
+    <?php else: ?>
         <p><?= __('No related subscription orders found.') ?></p>
-    <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- endif; ?>
+    <?php endif; ?>
 </div>
 
 <script type="text/x-magento-init">

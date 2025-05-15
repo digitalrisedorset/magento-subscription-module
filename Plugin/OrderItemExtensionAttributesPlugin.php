@@ -43,7 +43,7 @@ class OrderItemExtensionAttributesPlugin
         }
 
         try {
-            $subscription = $this->subscriptionRepository->getByOrderItemId($item->getItemId());
+            $subscription = $this->subscriptionRepository->getByOrderItemId((int)$item->getItemId());
             if ($subscription) {
                 $extensionAttributes->setSubscription($subscription);
                 $item->setExtensionAttributes($extensionAttributes);

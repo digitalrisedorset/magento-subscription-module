@@ -36,7 +36,7 @@ class Subscription extends \Magento\Backend\Block\Template
 
     public function getParentOrderId(): ?int
     {
-        return $this->getOrder()->getData('subscription_parent_order_id');
+        return (int) $this->getOrder()->getData('subscription_parent_order_id');
     }
 
     public function getParentOrder(): ?\Magento\Sales\Model\Order

@@ -5,8 +5,6 @@
  * See COPYING.txt for license details.
  */
 
-declare(strict_types=1);
-
 /** @var \Magento\Framework\View\Element\Template $block */
 /** @var \Magento\Catalog\Model\Product $product */
 $product = $block->getLayout()->getBlock('product.info')->getProduct();
@@ -16,14 +14,7 @@ $plans = $viewModel->getAssignedPlans($product);
 $maxDiscount = $viewModel->getMaxSubscriptionDiscount($product);
 ?>
 
-<?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- if ($viewModel->isProductSubscriptionEnabled($product)): ?>
+<?php if ($viewModel->isProductSubscriptionEnabled($product)): ?>
 
 <div class="drd-subscribe">
     <div>
@@ -35,57 +26,22 @@ declare(strict_types=1);
 
         <div class="field subscription-plan">
             <div class="fieldset subscription">
-                <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- foreach ($plans as $plan): ?>
+                <?php foreach ($plans as $plan): ?>
                     <input type="hidden" name="subscription_plan_id" value="<?= $plan->getId() ?>">
                     <input type="hidden" name="form_key" value="<?= $block->getFormKey() ?>" />
 
-                    <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- if ($plan->getTerms()): ?>
+                    <?php if ($plan->getTerms()): ?>
                         <a href="#" class="view-terms-link" data-cms-block="<?= $plan->getTerms() ?>">
-                            Terms & Conditions
+                            <?= __('Terms & Conditions') ?>
                         </a>
-                    <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- endif; ?>
-                <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- endforeach; ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </div>
             <div class="subscription-action-one">
                 <button type="submit" class="action primary big-subscribe-button" id="subscribe-button">
-                    Subscribe
+                    <?= __('Subscribe') ?>
                 </button>
             </div>
         </div>
     </div>
-<?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- endif; ?>
+<?php endif; ?>
