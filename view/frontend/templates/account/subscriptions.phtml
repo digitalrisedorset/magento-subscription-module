@@ -13,40 +13,12 @@ $viewModel = $block->getData('viewModel');
 
 <h2><?= __('Your Active Subscriptions') ?></h2>
 
-<?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
+<?php $orders = $block->getSubscriptionOrders(); ?>
 
-declare(strict_types=1);
- $orders = $block->getSubscriptionOrders(); ?>
-
-<?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- if (count($orders)): ?>
+<?php if (count($orders)): ?>
     <ul class="subscription-list">
-        <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- foreach ($orders as $order): ?>
-            <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- foreach ($order->getItems() as $item):
+        <?php foreach ($orders as $order): ?>
+            <?php foreach ($order->getItems() as $item):
                 $subscription = $item->getExtensionAttributes()?->getSubscription();
                 if (!$subscription) continue;
             ?>
@@ -99,37 +71,9 @@ declare(strict_types=1);
                         </form>
                     </div>
                 </li>
-            <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- endforeach; ?>
-        <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- endforeach; ?>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
     </ul>
-<?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- else: ?>
+<?php else: ?>
     <p><?= __('You have no subscriptions yet.') ?></p>
-<?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- endif; ?>
+<?php endif; ?>

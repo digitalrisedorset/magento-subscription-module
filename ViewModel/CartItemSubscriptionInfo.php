@@ -43,11 +43,7 @@ class CartItemSubscriptionInfo implements ArgumentInterface
         return $planId ? $this->planProvider->getById($planId) : null;
     }
 
-    /**
-     * @param Item $item
-     * @return string|null
-     */
-    public function getDiscountLabel(Item $item): ?string
+    public function getDiscountLabel(Item $item): ?\Magento\Framework\Phrase
     {
         /** @var \Magento\Framework\DataObject $plan */
         $plan = $this->getPlan($item);

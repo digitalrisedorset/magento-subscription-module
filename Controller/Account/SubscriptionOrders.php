@@ -14,6 +14,7 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\RawFactory;
 use Magento\Framework\View\LayoutFactory;
 use Magento\Framework\App\RequestInterface;
+use Magento\Customer\Model\Session;
 
 class SubscriptionOrders extends Action
 {

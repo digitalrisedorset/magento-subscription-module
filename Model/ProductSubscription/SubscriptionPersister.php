@@ -56,9 +56,9 @@ class SubscriptionPersister
     {
         /** @var \Drd\Subscribe\Api\Data\SubscriptionInterface $subscription */
         $subscription = $this->subscriptionFactory->create();
-        $subscription->setOriginalOrderId($order->getId());
+        $subscription->setOriginalOrderId((int) $order->getId());
         $subscription->setRecurrence($optionSubscription['recurrence']);
-        $subscription->setOrderItemId($orderItem->getId());
+        $subscription->setOrderItemId((int) $orderItem->getId());
         $subscription->setSku($orderItem->getSku());
         $subscription->setPaymentToken($this->tokenReader->getPaymentToken($order));
         $this->subscriptionRepository->save($subscription);

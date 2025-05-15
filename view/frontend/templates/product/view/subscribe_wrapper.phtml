@@ -16,12 +16,7 @@ $product = $block->getLayout()->getBlock('product.info')->getProduct();
 $maxDiscount = $subscriptionViewModel->getMaxSubscriptionDiscount($product);
 ?>
 <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
 
-declare(strict_types=1);
  if ($viewModel->isCustomerLoggedIn()): ?>
     <?= $block->getChildHtml(); ?>
 
@@ -36,39 +31,11 @@ declare(strict_types=1);
             }
         }
     </script>
-<?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- else: ?>
-    <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- if ($maxDiscount): ?>
+<?php else: ?>
+    <?php if ($maxDiscount): ?>
     <div class="subscription-login-required">
         <?= __('Log in to Save up to %1 by Subscribing to this product', $maxDiscount) ?>
         <a href="<?= $viewModel->getLoginUrl($block) ?>"><?= __('Log In') ?></a>
     </div>
-    <?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- endif; ?>
-<?php
-/**
- * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
- * See COPYING.txt for license details.
- */
-
-declare(strict_types=1);
- endif; ?>
+    <?php endif; ?>
+<?php endif; ?>

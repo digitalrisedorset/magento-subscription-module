@@ -20,6 +20,7 @@ class SubscriptionTranslator
             '3m' => __('Every 3 Months'),
         ];
 
-        return $map[$code] ?? $code;
+        $sentence = $map[$code] ?? $code;
+        return (string) $sentence;
     }
 }
