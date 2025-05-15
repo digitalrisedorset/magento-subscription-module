@@ -1,11 +1,18 @@
 <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+
 
 namespace Drd\Subscribe\Model;
 
 use Drd\Subscribe\Api\Data\SubscriptionInterface;
+use Drd\Subscribe\Api\PaymentTransactionHandlerInterface;
 use Drd\Subscribe\Model\ReorderServiceProcessor\OrderBuyRequestBuilder;
 use Drd\Subscribe\Model\ReorderServiceProcessor\PaymentHandler;
-use Drd\Subscribe\Model\ReorderServiceProcessor\PaymentTransactionHandler;
 use Drd\Subscribe\Model\ReorderServiceProcessor\ShippingHandler;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Sales\Model\OrderFactory;
@@ -29,7 +36,7 @@ class ReorderServiceProcessor
      * @param OrderBuyRequestBuilder $orderBuyRequestBuilder
      * @param ShippingHandler $shippingHandler
      * @param PaymentHandler $paymentHandler
-     * @param PaymentTransactionHandler $transactionHandler
+     * @param PaymentTransactionHandlerInterface $transactionHandler
      * @param LoggerInterface $logger
      */
     public function __construct(
@@ -42,7 +49,7 @@ class ReorderServiceProcessor
         private OrderBuyRequestBuilder      $orderBuyRequestBuilder,
         private ShippingHandler             $shippingHandler,
         private PaymentHandler              $paymentHandler,
-        private PaymentTransactionHandler   $transactionHandler,
+        private PaymentTransactionHandlerInterface   $transactionHandler,
         private LoggerInterface             $logger
     ) {
     }

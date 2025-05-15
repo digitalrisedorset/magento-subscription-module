@@ -1,6 +1,13 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
  * See COPYING.txt for license details.
  */
 
@@ -21,67 +28,263 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
 <tbody class="cart item">
 <tr class="item-info">
     <td data-th="<?= $block->escapeHtml(__('Item')) ?>" class="col item">
-        <?php if ($block->hasProductUrl()): ?>
+        <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($block->hasProductUrl()): ?>
         <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
            title="<?= $block->escapeHtml($block->getProductName()) ?>"
            tabindex="-1"
            class="product-item-photo">
-            <?php else: ?>
+            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ else: ?>
             <span class="product-item-photo">
-            <?php endif; ?>
+            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>
             <?= $block->getImage($block->getProductForThumbnail(), 'cart_page_product_thumbnail')->toHtml() ?>
-            <?php if ($block->hasProductUrl()): ?>
+            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($block->hasProductUrl()): ?>
         </a>
-    <?php else: ?>
+    <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ else: ?>
         </span>
-    <?php endif; ?>
+    <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>
         <div class="product-item-details">
             <strong class="product-item-name">
-                <?php if ($block->hasProductUrl()): ?>
+                <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($block->hasProductUrl()): ?>
                     <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"><?= $block->escapeHtml($block->getProductName()) ?></a>
-                <?php else: ?>
+                <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ else: ?>
                     <?= $block->escapeHtml($block->getProductName()) ?>
-                <?php endif; ?>
+                <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>
             </strong>
 
-            <?php if ($label): ?>
-                <div class="subscription-discount-label"><?= $label ?></div>
-            <?php endif; ?>
+            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
 
-            <?php if ($_options = $block->getOptionList()): ?>
+declare(strict_types=1);
+ if ($label): ?>
+                <div class="subscription-discount-label"><?= $label ?></div>
+            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>
+
+            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($_options = $block->getOptionList()): ?>
                 <dl class="item-options">
-                    <?php foreach ($_options as $_option): ?>
-                        <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                    <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ foreach ($_options as $_option): ?>
+                        <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
                         <dt><?= $block->escapeHtml($_option['label']) ?></dt>
                         <dd>
-                            <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if (isset($_formatedOptionValue['full_view'])): ?>
                                 <?= $block->escapeHtml($_formatedOptionValue['full_view'], ['span', 'a']) ?>
-                            <?php else: ?>
+                            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ else: ?>
                                 <?= $block->escapeHtml($_formatedOptionValue['value'], ['span', 'a']) ?>
-                            <?php endif; ?>
+                            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>
                         </dd>
-                    <?php endforeach; ?>
+                    <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endforeach; ?>
                 </dl>
-            <?php endif; ?>
-            <?php if ($messages = $block->getMessages()): ?>
-                <?php foreach ($messages as $message): ?>
+            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>
+            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($messages = $block->getMessages()): ?>
+                <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ foreach ($messages as $message): ?>
                     <div class= "cart item message <?= $block->escapeHtmlAttr($message['type']) ?>">
                         <div><?= $block->escapeHtml($message['text']) ?></div>
                     </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
-            <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
-            <?php if ($addInfoBlock): ?>
+                <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endforeach; ?>
+            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>
+            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($addInfoBlock): ?>
                 <?= $addInfoBlock->setItem($_item)->toHtml() ?>
-            <?php endif; ?>
+            <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>
         </div>
     </td>
 
-    <?php if ($canApplyMsrp): ?>
+    <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($canApplyMsrp): ?>
         <td class="col msrp" data-th="<?= $block->escapeHtml(__('Price')) ?>">
                 <span class="pricing msrp">
                     <span class="msrp notice"><?= $block->escapeHtml(__('See price before order confirmation.')) ?></span>
-                    <?php $helpLinkId = 'cart-msrp-help-' . $_item->getId(); ?>
+                    <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ $helpLinkId = 'cart-msrp-help-' . $_item->getId(); ?>
                     <a href="#" class="action help map"
                        id="<?= ($block->escapeHtmlAttr($helpLinkId)) ?>"
                        data-mage-init='{"addToCart":{
@@ -96,11 +299,25 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                     </a>
                 </span>
         </td>
-    <?php else: ?>
+    <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ else: ?>
         <td class="col price" data-th="<?= $block->escapeHtml(__('Price')) ?>">
             <?= $block->getUnitPriceHtml($_item) ?>
         </td>
-    <?php endif; ?>
+    <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>
     <td class="col qty" data-th="<?= $block->escapeHtml(__('Qty')) ?>">
         <div class="field qty">
             <div class="control qty">
@@ -125,11 +342,32 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
     </td>
 
     <td class="col subtotal" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
-        <?php if ($canApplyMsrp): ?>
+        <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($canApplyMsrp): ?>
             <span class="cart msrp subtotal">--</span>
-        <?php else: ?>
+        <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ else: ?>
             <?= $block->getRowTotalHtml($_item) ?>
-        <?php endif; ?>
+        <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>
     </td>
 </tr>
 <tr class="item-actions">

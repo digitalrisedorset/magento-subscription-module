@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+
 
 namespace Drd\Subscribe\Plugin;
 
@@ -9,7 +16,6 @@ use Magento\Framework\Api\ExtensionAttributesFactory;
 
 class ProductRepositoryPlugin
 {
-    private $subscriptionConfigFactory;
     /**
      * @var ExtensionAttributesFactory
      */
@@ -20,16 +26,13 @@ class ProductRepositoryPlugin
     private $subscriptionConfigReader;
 
     /**
-     * @param ProductSuscriptionConfigInterfaceFactory $subscriptionConfigFactory
      * @param ExtensionAttributesFactory $extensionAttributesFactory
      * @param SubscriptionConfigReader $subscriptionConfigReader
      */
     public function __construct(
-        ProductSuscriptionConfigInterfaceFactory $subscriptionConfigFactory,
         ExtensionAttributesFactory $extensionAttributesFactory,
         SubscriptionConfigReader $subscriptionConfigReader
     ) {
-        $this->subscriptionConfigFactory = $subscriptionConfigFactory;
         $this->extensionAttributesFactory = $extensionAttributesFactory;
         $this->subscriptionConfigReader = $subscriptionConfigReader;
     }

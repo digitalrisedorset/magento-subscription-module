@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+
 /** @var \Magento\Framework\View\Element\Template $block */
 /** @var \Drd\Subscribe\ViewModel\SubscribeValidator $viewModel */
 $viewModel = $block->getData('viewModel');
@@ -8,13 +15,60 @@ $subscriptionViewModel = $block->getData('subscriptionViewModel');
 $product = $block->getLayout()->getBlock('product.info')->getProduct();
 $maxDiscount = $subscriptionViewModel->getMaxSubscriptionDiscount($product);
 ?>
-<?php if ($viewModel->isCustomerLoggedIn()): ?>
+<?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($viewModel->isCustomerLoggedIn()): ?>
     <?= $block->getChildHtml(); ?>
-<?php else: ?>
-    <?php if ($maxDiscount): ?>
+
+    <div id="subscription-terms-modal" style="display:none;">
+        <div class="content" id="subscription-terms-modal-content">Loading…</div>
+    </div>
+
+    <script type="text/x-magento-init">
+        {
+            "#subscription-terms-modal": {
+                "Drd_Subscribe/js/subscribe-terms-modal": {}
+            }
+        }
+    </script>
+<?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ else: ?>
+    <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($maxDiscount): ?>
     <div class="subscription-login-required">
         <?= __('Log in to Save up to %1 by Subscribing to this product', $maxDiscount) ?>
         <a href="<?= $viewModel->getLoginUrl($block) ?>"><?= __('Log In') ?></a>
     </div>
-    <?php endif; ?>
-<?php endif; ?>
+    <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>
+<?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>

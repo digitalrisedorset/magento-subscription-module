@@ -15,6 +15,9 @@
     <preference for="Drd\Subscribe\Api\SubscriptionRepositoryInterface"
                 type="Drd\Subscribe\Model\SubscriptionRepository"/>
 
+    <preference for="Drd\Subscribe\Api\PaymentTransactionHandlerInterface"
+                type="Drd\Subscribe\Model\ReorderServiceProcessor\PaymentTransactionHandler"/>
+
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">

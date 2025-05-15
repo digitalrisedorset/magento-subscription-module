@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+
 
 namespace Drd\Subscribe\Block\Account;
 
@@ -29,6 +36,7 @@ class Subscriptions extends Template
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\App\Http\Context $httpContext,
         CurrentCustomer $currentCustomer,
         OrderRepositoryInterface $orderRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
@@ -40,6 +48,7 @@ class Subscriptions extends Template
         $this->orderRepository = $orderRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->sortOrderBuilder = $sortOrderBuilder;
+        $this->httpContext = $httpContext;
     }
 
     public function getCustomerId()
