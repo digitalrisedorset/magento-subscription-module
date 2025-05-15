@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+
 /** @var \Magento\Framework\View\Element\Template $block */
 /** @var \Magento\Catalog\Model\Product $product */
 $product = $block->getLayout()->getBlock('product.info')->getProduct();
@@ -7,8 +14,29 @@ $viewModel = $block->getData('viewModel');
 $plans = $viewModel->getAssignedPlans($product);
 $hasOnePlan = is_array($plans) && count($plans) === 1;
 ?>
-<?php if ($hasOnePlan): ?>
+<?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($hasOnePlan): ?>
     <?= $block->getChildHtml('product.purchase.options.oneplan') ?>
-<?php else: ?>
+<?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ else: ?>
     <?= $block->getChildHtml('product.purchase.options') ?>
-<?php endif; ?>
+<?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>

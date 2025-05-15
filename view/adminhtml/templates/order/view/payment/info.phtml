@@ -1,5 +1,12 @@
 <?php
 /**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+
+/**
  * @var \Drd\Subscribe\Block\Payment\Info\Subscribe $block
  * @see \Magento\Payment\Block\Info
  */
@@ -7,25 +14,67 @@ $paymentTitle = $block->getMethod()->getConfigData('title', $block->getInfo()->g
 ?>
 <?= $this->escapeHtml($paymentTitle) ?>
 
-<?php if ($block->getTransactionId()): ?>
+<?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($block->getTransactionId()): ?>
     <div>
         <strong>Transaction ID:</strong>
         <code><?= $this->escapeHtml($block->getTransactionId()) ?></code>
     </div>
-<?php endif; ?>
+<?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
 
-<?php if ($block->getPaymentType()): ?>
+declare(strict_types=1);
+ endif; ?>
+
+<?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($block->getPaymentType()): ?>
     <div>
         <strong>Payment Type:</strong>
         <?= $this->escapeHtml($block->getPaymentType()) ?>
     </div>
-<?php endif; ?>
+<?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
 
-<?php if ($block->getPaymentDescription()): ?>
+declare(strict_types=1);
+ endif; ?>
+
+<?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ if ($block->getPaymentDescription()): ?>
     <div>
         <strong>Payment Info:</strong>
         <?= $this->escapeHtml($block->getPaymentDescription()) ?>
     </div>
-<?php endif; ?>
+<?php
+/**
+ * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
+ * See COPYING.txt for license details.
+ */
+
+declare(strict_types=1);
+ endif; ?>
 
 
