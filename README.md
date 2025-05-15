@@ -136,4 +136,4 @@ We recommend testing the integration thoroughly if Wishlist is a required featur
 ## 📅 License
 
 This module is proprietary but may be open-sourced in future.  
-Built by [Your Name / Your Company].
+Built by Herve Tribouilloy / Digital Rise Dorset.
