@@ -4,7 +4,9 @@
  * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
  * See COPYING.txt for license details.
  */
+use Magento\Framework\Escaper;
 
+/** @var Escaper $escaper */
 /** @var \Magento\Framework\View\Element\Template $block */
 /** @var \Magento\Catalog\Model\Product $product */
 $product = $block->getLayout()->getBlock('product.info')->getProduct();
@@ -20,35 +22,44 @@ $plans = $viewModel->getAssignedPlans($product);
         <div class="field purchase-mode-selector">
             <label>
                 <input type="radio" name="purchase_mode" value="one_time" checked>
-                One-time purchase
+                <?= $escaper->escapeHtml(__('One-time purchase')); ?>
             </label>
             <label>
                 <input type="radio" name="purchase_mode" value="subscribe">
-                <?= $viewModel->getSubscribeLabel($product) ?>
+                <?= $escaper->escapeHtml($viewModel->getSubscribeLabel($product)) ?>
             </label>
         </div>
 
         <?php if (!empty($plans)): ?>
             <div class="field subscription-plan-selector" style="display: none;">
-                <input type="hidden" name="form_key" value="<?= $block->getFormKey() ?>" />
+                <?= $block->getBlockHtml('formkey') ?>
 
                 <div class="fieldset subscription">
                     <legend><?= __('Subscription Options') ?></legend>
                     <?php foreach ($plans as $plan): ?>
                         <label class="plan-option">
                             <input type="radio" name="subscription_plan_id" value="<?= $plan->getId() ?>">
-                            <?= $plan->getLabel() ?>
+                            <?= $escaper->escapeHtml($plan->getLabel()) ?>
                         </label>
                         <?php if ($plan->getTerms()): ?>
                             <a href="#" class="view-terms-link" data-cms-block="<?= $plan->getTerms() ?>">
-                                <?= __('Terms & Conditions') ?>
+                                <?= $escaper->escapeHtml(__('Terms & Conditions')) ?>
                             </a>
                         <?php endif; ?>
                     <?php endforeach; ?>
             </div>
             <div class="subscription-action" style="display: none;">
-                <button type="submit" class="action primary big-subscribe-button" id="subscribe-button">
-                    <?= __('Subscribe') ?>
+                <button type="submit"
+                        class="action primary big-subscribe-button"
+                        id="subscribe-button"
+                        data-role="subscribe-button"
+                        data-mage-init='{"subscribeButton":{}}'>
+                    <span><?= __('Subscribe') ?></span>
+                    <div class="loader" style="display:none;">
+                        <img src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/loader-1.gif')) ?>"
+                             alt="<?= $escaper->escapeHtmlAttr(__('Loading...')) ?>"
+                             style="position: absolute;">
+                    </div>
                 </button>
             </div>
         <?php endif; ?>

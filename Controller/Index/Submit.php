@@ -13,8 +13,8 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Checkout\Model\Cart;
-use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\Data\Form\FormKey\Validator as FormKeyValidator;
+use Magento\Framework\Controller\Result\JsonFactory;
 
 class Submit extends Action
 {
@@ -24,13 +24,13 @@ class Submit extends Action
     protected $resultRedirectFactory;
     protected $formKeyValidator;
     private ProductBuyRequestBuilder $productBuyRequestBuilder;
+    private JsonFactory $resultJsonFactory;
 
     /**
      * @param Context $context
      * @param ProductRepositoryInterface $productRepository
      * @param Cart $cart
      * @param ProductBuyRequestBuilder $productBuyRequestBuilder
-     * @param RedirectFactory $resultRedirectFactory
      * @param FormKeyValidator $formKeyValidator
      */
     public function __construct(
@@ -38,15 +38,15 @@ class Submit extends Action
         ProductRepositoryInterface $productRepository,
         Cart                       $cart,
         ProductBuyRequestBuilder   $productBuyRequestBuilder,
-        RedirectFactory            $resultRedirectFactory,
-        FormKeyValidator           $formKeyValidator
+        FormKeyValidator           $formKeyValidator,
+        JsonFactory $jsonFactory
     ) {
         parent::__construct($context);
         $this->productRepository = $productRepository;
         $this->cart = $cart;
-        $this->resultRedirectFactory = $resultRedirectFactory;
         $this->formKeyValidator = $formKeyValidator;
         $this->productBuyRequestBuilder = $productBuyRequestBuilder;
+        $this->resultJsonFactory = $jsonFactory;
     }
 
     public function execute()
@@ -67,11 +67,25 @@ class Submit extends Action
             $this->cart->addProduct($product, $buyRequest);
             $this->cart->save();
 
-            $this->messageManager->addSuccessMessage(__('Subscription added to cart.'));
+            $message = __(
+                'You added %1 as a subscription to your shopping cart.',
+                $product->getName()
+            );
+            $this->messageManager->addSuccessMessage($message);
+            $response = [
+                'errors' => false,
+                'message' => $message
+            ];
         } catch (\Exception $e) {
-            $this->messageManager->addErrorMessage(__('Could not add subscription: ') . $e->getMessage());
+            $response = [
+                'errors' => true,
+                'message' => __('Could not add subscription: ') . $e->getMessage(),
+            ];
+            $this->messageManager->addErrorMessage($message);
         }
 
-        return $this->resultRedirectFactory->create()->setPath('checkout/cart');
+        /** @var \Magento\Framework\Controller\Result\Json $resultJson */
+        $resultJson = $this->resultJsonFactory->create();
+        return $resultJson->setData($response);
     }
 }

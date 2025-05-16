@@ -4,7 +4,9 @@
  * Copyright © Digital Rise Dorset. All rights reserved.YING.txt for license details.
  * See COPYING.txt for license details.
  */
+use Magento\Framework\Escaper;
 
+/** @var Escaper $escaper */
 /** @var \Magento\Framework\View\Element\Template $block */
 /** @var \Magento\Catalog\Model\Product $product */
 $product = $block->getLayout()->getBlock('product.info')->getProduct();
@@ -28,7 +30,7 @@ $maxDiscount = $viewModel->getMaxSubscriptionDiscount($product);
             <div class="fieldset subscription">
                 <?php foreach ($plans as $plan): ?>
                     <input type="hidden" name="subscription_plan_id" value="<?= $plan->getId() ?>">
-                    <input type="hidden" name="form_key" value="<?= $block->getFormKey() ?>" />
+                    <?= $block->getBlockHtml('formkey') ?>
 
                     <?php if ($plan->getTerms()): ?>
                         <a href="#" class="view-terms-link" data-cms-block="<?= $plan->getTerms() ?>">
@@ -38,8 +40,17 @@ $maxDiscount = $viewModel->getMaxSubscriptionDiscount($product);
                 <?php endforeach; ?>
             </div>
             <div class="subscription-action-one">
-                <button type="submit" class="action primary big-subscribe-button" id="subscribe-button">
-                    <?= __('Subscribe') ?>
+                <button type="submit"
+                        class="action primary big-subscribe-button"
+                        id="subscribe-button"
+                        data-role="subscribe-button"
+                        data-mage-init='{"subscribeButton":{}}'>
+                    <span><?= __('Subscribe') ?></span>
+                    <div class="loader" style="display:none;">
+                        <img src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/loader-1.gif')) ?>"
+                             alt="<?= $escaper->escapeHtmlAttr(__('Loading...')) ?>"
+                             style="position: absolute;">
+                    </div>
                 </button>
             </div>
         </div>

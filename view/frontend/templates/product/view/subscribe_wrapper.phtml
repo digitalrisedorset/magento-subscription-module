@@ -6,6 +6,9 @@
 
 declare(strict_types=1);
 
+use Magento\Framework\Escaper;
+
+/** @var Escaper $escaper */
 /** @var \Magento\Framework\View\Element\Template $block */
 /** @var \Drd\Subscribe\ViewModel\SubscribeValidator $viewModel */
 $viewModel = $block->getData('viewModel');
@@ -35,7 +38,7 @@ $maxDiscount = $subscriptionViewModel->getMaxSubscriptionDiscount($product);
     <?php if ($maxDiscount): ?>
     <div class="subscription-login-required">
         <?= __('Log in to Save up to %1 by Subscribing to this product', $maxDiscount) ?>
-        <a href="<?= $viewModel->getLoginUrl($block) ?>"><?= __('Log In') ?></a>
+        <a href="<?= $escaper->escapeUrl($viewModel->getLoginUrl($block)) ?>"><?= __('Log In') ?></a>
     </div>
     <?php endif; ?>
 <?php endif; ?>
