@@ -6,6 +6,10 @@
 
 declare(strict_types=1);
 
+use Magento\Framework\Escaper;
+
+/** @var Escaper $escaper */
+
 /**
  * @var \Drd\Subscribe\Block\Payment\Info\Subscribe $block
  * @see \Magento\Payment\Block\Info
@@ -17,21 +21,21 @@ $paymentTitle = $block->getMethod()->getConfigData('title', $block->getInfo()->g
 <?php if ($block->getTransactionId()): ?>
     <div>
         <strong>Transaction ID:</strong>
-        <code><?= $this->escapeHtml($block->getTransactionId()) ?></code>
+        <code><?= $escaper->escapeHtml($block->getTransactionId()) ?></code>
     </div>
 <?php endif; ?>
 
 <?php if ($block->getPaymentType()): ?>
     <div>
         <strong>Payment Type:</strong>
-        <?= $this->escapeHtml($block->getPaymentType()) ?>
+        <?= $escaper->escapeHtml($block->getPaymentType()) ?>
     </div>
 <?php endif; ?>
 
 <?php if ($block->getPaymentDescription()): ?>
     <div>
         <strong>Payment Info:</strong>
-        <?= $this->escapeHtml($block->getPaymentDescription()) ?>
+        <?= $escaper->escapeHtml($block->getPaymentDescription()) ?>
     </div>
 <?php endif; ?>
 

@@ -6,6 +6,9 @@
 
 declare(strict_types=1);
 
+use Magento\Framework\Escaper;
+
+/** @var Escaper $escaper */
 /** @var \Drd\Subscribe\Block\Account\Subscription\SubscriptionOrders $block */
 /** @var \Drd\Subscribe\ViewModel\SubscribeOrders $viewModel */
 $viewModel = $block->getData('viewModel');
@@ -21,7 +24,7 @@ $orders = $viewModel->getSubscriptionOrders();
                     <?= __('Order') ?> #<?= $relatedOrder->getIncrementId() ?> —
                     <?= $relatedOrder->getCreatedAt() ?> —
                     <a href="<?= $block->getUrl('sales/order/view', ['order_id' => $relatedOrder->getId()]) ?>">
-                        <?= __('View Details') ?>
+                        <?= $escaper->escapeHtml(__('View Details')) ?>
                     </a>
                 </li>
             <?php endforeach; ?>

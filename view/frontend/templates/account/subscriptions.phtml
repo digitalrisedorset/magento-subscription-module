@@ -6,6 +6,9 @@
 
 declare(strict_types=1);
 
+use Magento\Framework\Escaper;
+
+/** @var Escaper $escaper */
 /** @var \Magento\Framework\View\Element\Template $block */
 /** @var \Drd\Subscribe\ViewModel\MySubscriptionsViewModel $viewModel */
 $viewModel = $block->getData('viewModel');
@@ -24,7 +27,7 @@ $viewModel = $block->getData('viewModel');
             ?>
                 <li class="subscription-card">
                     <div class="subscription-header">
-                        <strong><?= __('Subscription for %1', $subscription->getSku()) ?></strong>
+                        <strong><?= $escaper->escapeHtml(__('Subscription for %1', $subscription->getSku())) ?></strong>
                         <span class="subscription-started">
                             <i class="icon-calendar" aria-hidden="true"></i>
                             <?= __('Started on: %1', $viewModel->formatCreatedAt($subscription)) ?>
@@ -32,12 +35,12 @@ $viewModel = $block->getData('viewModel');
                     </div>
 
                     <div class="subscription-info">
-                        <div><strong><?= __('Recurrence:') ?></strong> <?= $viewModel->formatRecurrence($subscription) ?></div>
-                        <div><strong><?= __('Next Order Date:') ?></strong> <?= $viewModel->formatNextOrderDate($subscription) ?></div>
+                        <div><strong><?= $escaper->escapeHtml(__('Recurrence:')) ?></strong> <?= $viewModel->formatRecurrence($subscription) ?></div>
+                        <div><strong><?= $escaper->escapeHtml(__('Next Order Date:')) ?></strong> <?= $viewModel->formatNextOrderDate($subscription) ?></div>
                         <div>
                             <strong><?= __('Status:') ?></strong>
                             <span class="status status-<?= strtolower($subscription->getStatus()) ?>">
-                                <?= $viewModel->getDisplayStatus($subscription) ?>
+                                <?= $escaper->escapeHtml($viewModel->getDisplayStatus($subscription)) ?>
                             </span>
                         </div>
                     </div>
